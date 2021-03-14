@@ -1,0 +1,5 @@
+.table_body:hover .table_but{
+    background-color: #349ea3;
+    transition: .2s linear;
+    color:white;
+}
