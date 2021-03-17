@@ -22,6 +22,7 @@ class MainPageComponent extends Component {
 
     logOut() {
         AuthService.logout();
+        this.props.history.push('/login');
     }
 
     goToIncome() {
@@ -64,18 +65,18 @@ class MainPageComponent extends Component {
                     </div>
                 </header>
 
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg d-flex justify-content-center m-5">
 
-                            <a href="/login"  className="search_but" onClick={this.logOut}>
-                                <span>ВИЙТИ З АККАУНТУ</span>
-                            </a>
+
+                <section className="search">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-12 search_box">
+                                <a href="/login" className="search_but dandruff"
+                                   onClick={this.logOut}>ВИЙТИ З АККАУНТУ</a>
+                            </div>
                         </div>
-
                     </div>
-                </div>
-
+                </section>
 
 
 

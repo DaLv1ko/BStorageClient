@@ -9,7 +9,7 @@ class IncomeComponent extends Component {
         super(props)
 
         let today = new Date(),
-            date = today.getDate() + '-' + ((today.getMonth()+1 < 10 ? '0' : '') + (today.getMonth()+1)) + '-' + today.getFullYear();
+             date = today.getDate() + '.' + ((today.getMonth()+1 < 10 ? '0' : '') + (today.getMonth()+1)) + '.' + today.getFullYear();
 
         this.state = {
             goods: [],
@@ -30,8 +30,8 @@ class IncomeComponent extends Component {
             supplier: '',
             date: '',
             count:1,
-            currentDate:date
-
+            currentDate:date,
+            addDate:true,
         }
 
 
@@ -88,6 +88,7 @@ class IncomeComponent extends Component {
         });
 
         if(this.state.id!==''){GoodsIncomeService.getIncomeById(this.state.id).then((res) => {
+            console.log("ШОСЬ НЕ ТАК")
             let income = res.data;
             this.setState({
                 type: income.type.type,
@@ -182,6 +183,7 @@ class IncomeComponent extends Component {
         this.setState({amount: ''})
         this.setState({supplier: ''})
         this.setState({date: ''})
+        this.setState({addDate:true})
     }
 
     changeTypeHandler = (event) => {
@@ -204,7 +206,12 @@ class IncomeComponent extends Component {
     }
     changeDateHandler = (event) => {
         this.setState({date: event.target.value})
+        this.setState({addDate: false})
     }
+    // changeAddDateHandler = (event) => {
+    //     this.setState({currentDate: event.target.value})
+    // }
+
 
     getButton() {
         if (this.state.addOrUpdate === '_add') {
@@ -224,11 +231,15 @@ class IncomeComponent extends Component {
     }
 
     getDateInput() {
+        console.log(this.state.currentDate);
         if (this.state.addOrUpdate === '_add') {
-            return  <input placeholder="xx-xx-xxxx" name="date" value={this.state.currentDate}
+
+
+            if(this.state.addDate){this.state.date=this.state.currentDate;}
+            return  <input placeholder="дд.мм.рррр" name="date" value={this.state.date}
                            onChange={this.changeDateHandler}/>
         } else {
-            return <input placeholder="xx-xx-xxxx" name="date" value={this.state.date}
+            return <input  placeholder="дд.мм.рррр" name="date" value={this.state.date}
                           onChange={this.changeDateHandler}/>
         }
     }
@@ -269,49 +280,72 @@ class IncomeComponent extends Component {
 
             <div>
                 {console.log(this.state.count++)}
+                {/*<header className="header lock-padding">*/}
+                {/*    <div className="container-fluid p-0">*/}
+                {/*        <div className="row m-0">*/}
+                {/*            <div className="col-lg-4 p-0 menu">*/}
+                {/*                <ul className="selected_menu_inner">*/}
+                {/*                    <li><span className="selected_button_text" >Прихід</span>*/}
+                {/*                        <i className="fas fa-times" style={{color:"white"}}*/}
+                {/*                           aria-hidden="true" onClick={() => this.goToMain()}/>*/}
+                {/*                    </li>*/}
+                {/*                </ul>*/}
+                {/*            </div>*/}
+
+                {/*            <div className="col-lg-4 p-0 menu">*/}
+                {/*                <ul className="menu_inner" onClick={() => this.goToStorage()}>*/}
+
+                {/*                    <li className="button_text" >Склад</li>*/}
+                {/*                </ul>*/}
+                {/*            </div>*/}
+                {/*            <div className="col-lg-4 p-0 menu">*/}
+                {/*                <ul className="menu_inner" onClick={() => this.goToSale()}>*/}
+                {/*                    <li className="button_text" >Продаж</li>*/}
+                {/*                </ul>*/}
+                {/*            </div>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</header>*/}
                 <header className="header lock-padding">
                     <div className="container-fluid p-0">
                         <div className="row m-0">
                             <div className="col-lg-4 p-0 menu">
-                                <ul className="selected_menu_inner">
-                                    <li><span className="selected_button_text" >Прихід</span>
-                                        <i className="fas fa-times" style={{color:"white"}}
-                                           aria-hidden="true" onClick={() => this.goToMain()}/>
-                                    </li>
+                                <ul className="menu_inner menu_inner__active">
+                                    <li><a>Прихід</a></li>
+                                    <li><i className="fas fa-times" onClick={() => this.goToMain()} id="active_page"/></li>
                                 </ul>
                             </div>
-
                             <div className="col-lg-4 p-0 menu">
                                 <ul className="menu_inner" onClick={() => this.goToStorage()}>
-
-                                    <li className="button_text" >Склад</li>
+                                    <li><a >Склад</a></li>
                                 </ul>
                             </div>
                             <div className="col-lg-4 p-0 menu">
                                 <ul className="menu_inner" onClick={() => this.goToSale()}>
-                                    <li className="button_text" >Продаж</li>
+                                    <li><a>Продаж</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </header>
 
-
                 <section className="search">
                     <div className="container">
                         <div className="row">
-                            <div className="col-lg d-flex justify-content-center m-5">
+                            <div className="col-12 search_box">
 
-                                <a
-                                   className="search_but popup_link"
+                                <a id="addGoods" className="search_but popup_link"
                                     onClick={() => {
                                         this.addForm();
                                     }}>Додати товар</a>
                             </div>
-                            <div className="col-lg-12 d-flex justify-content-center">
+
+                        </div>
+                        <div className="row">
+                            <div className="col-12 search_box">
                                 <input id="search" value={this.state.search} onChange={this.changeFilterHandler}
                                        type="text" name='model' placeholder='Пошук...' className='search_form__inner'/>
-                                <button className="search_but" onClick={() => this.searchIncome()}>Знайти</button>
+                                <button className="search_but dandruff" onClick={() => this.searchIncome()}>Знайти</button>
                             </div>
                         </div>
                     </div>
@@ -321,8 +355,8 @@ class IncomeComponent extends Component {
                     <section className="frame">
                         <div className="container">
                             <div className="row">
-                                <div className="col-12 d-flex justify-content-center">
-                                    <div className="table-box">
+                                <div className="col-12 ">
+                                    <div className="frame__box">
                                         <table>
                                             <thead>
                                             <tr className="table_head">
@@ -381,7 +415,7 @@ class IncomeComponent extends Component {
 
                                         </table>
 
-                                        <ReactLoading className="react_loading"   hidden={!this.isEmpty()} type={"bubbles"} color={"white"} height={500} width={500} />
+                                        <ReactLoading className="react_loading"   hidden={!this.isEmpty()} type={"cylon"} color={"white"} height={500} width={500} />
                                     </div>
                                 </div>
                             </div>
@@ -438,6 +472,7 @@ class IncomeComponent extends Component {
 
                                     <div className="popup-box">
                                         <label>Дата </label>
+
                                         {this.getDateInput()}
                                     </div>
                                     <div className="popup-box">

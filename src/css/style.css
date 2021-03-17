@@ -1,3 +1,8 @@
+
+html, body{
+    width:100%;
+}
+
 body{
     margin: 0;
     border: 0;
@@ -11,6 +16,10 @@ body{
 
 section{
     margin-bottom: 30px;
+}
+
+table tr td.td2:last-child {
+    word-break: break-word;
 }
 
 .react_loading{
@@ -31,6 +40,8 @@ section{
 }
 
 .menu_inner{
+    color: white;
+    position: relative;
     list-style: none;
     text-align: center;
     background-color: #298d90;
@@ -45,11 +56,34 @@ section{
 .menu_inner a{
     text-decoration: none;
     color:white;
+    display: block;
+    width:100%;
+    text-align: center;
 }
+
+.menu_inner i:hover{
+    color: #298d90;
+    transition: .24s linear;
+}
+
+.menu_inner.menu_inner__active li:last-child{
+    position: absolute  ;
+    right: 10px;
+    top: 10px;
+}
+.menu_inner.menu_inner__active{
+    background-color: #40babd;
+    position: relative;
+
+}
+
+
 
 /*Пошук по запиту*/
 /*Пошук по запиту*/
 /*Пошук по запиту*/
+
+
 
 .search_but .search_but__exel{
     margin-bottom: 20px;
@@ -71,6 +105,13 @@ section{
     padding: 12px 20px;
     transition: .24s linear; 
 }
+
+.dandruff {
+    border-radius: 0;
+    height: 42px;
+    text-align: center;
+}
+
 
 .search_but:active,
 .search_but:focus,
@@ -97,10 +138,21 @@ section{
     background-position: left;
 }
 
+.search_box{
+    display: flex;
+    justify-content: center;
+    margin: 20px auto
+}
+
+#addGoods{
+    text-align: center;
+}
+
+
 input[type=text]:focus.search_form__inner {
     width: 450px;
     outline: none;
-    border: none;   
+    border: none;
 }
 
 /*TABLE TABLE TABLE*/
@@ -109,10 +161,11 @@ input[type=text]:focus.search_form__inner {
 
 table{
     text-align: center;
+    margin: auto;
 }
 
 td, th{
-    padding: 10px 25px;
+    padding: 10px 26px;
     border: 2px solid rgb(8, 124, 139);
 }
 
@@ -235,5 +288,73 @@ td, th{
     background-color: #40babd;
     transition: .24s;
     padding: 7px 30px;
+}
+
+@media  (max-width: 1024px  ) {
+
+    .header__burger::after,
+    .header__burger::before{
+        content:'';
+        position: relative;
+        width: 30px;
+        height: 2px;
+        background-color: #fff;
+    }
+
+
+
+
+    .search_box{
+        display: block;
+    }
+
+    .search_form__inner{
+        width: 100%;
+        margin: 0 auto;
+        border-radius: 0;
+    }
+
+
+    input[type=text]:focus.search_form__inner {
+        width: 100%;
+        outline: none;
+        border: none;
+    }
+
+    .search_but{
+        width: 100%;
+        display: block;
+        margin: 10px auto;
+
+    }
+
+    .search_button{
+        width: 100%;
+        display: block;
+
+    }
+
+    .frame__box{
+        /*overflow: auto;*/
+        /*position: relative;*/
+    }
+
+    .frame__box table{
+        margin: 0 auto;
+        display: inline-block;
+        vertical-align: top;
+        horiz-align: center;
+        max-width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    td, th{
+        padding: 5px 13px;
+        font-size: 16px;
+    }
+
+
 }
 
