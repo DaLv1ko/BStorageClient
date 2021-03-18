@@ -39,6 +39,11 @@ class SaleComponent extends Component {
         return this.state.sales.length === 0;
     }
 
+    openBurger(){
+        const menu = document.getElementById('header__menu');
+        menu.classList.toggle('show');
+    }
+
     render() {
         return (
 
@@ -72,23 +77,30 @@ class SaleComponent extends Component {
 
                 <header className="header lock-padding">
                     <div className="container-fluid p-0">
-                        <div className="row m-0">
-                            <div className="col-lg-4 p-0 menu">
+                        <div className="header_wrapburg">
+                            <span className="title">ПРОДАЖ</span>
+                            <div className="header__burger">
+                                <span id="trigger" onClick={() => {
+                                    this.openBurger()
+                                }}/>
+                            </div>
+                        </div>
+                        <div id="header__menu" className="row header__menu">
+                            <div className="col-lg-4 menu">
                                 <ul className="menu_inner" onClick={() => this.goToIncome()}>
                                     <li><a>Прихід</a></li>
                                 </ul>
                             </div>
-                            <div className="col-lg-4 p-0 menu">
+                            <div className="col-lg-4  menu">
                                 <ul className="menu_inner"  onClick={() => this.goToStorage()}>
                                     <li><a>Склад</a></li>
-
                                 </ul>
                             </div>
-                            <div className="col-lg-4 p-0 menu">
-                                <ul className="menu_inner menu_inner__active">
-                                    <li><a>Продаж</a></li>
-                                    <li><i className="fas fa-times" onClick={() => this.goToMain()} id="active_page"/>
-                                    </li>
+                            <div className="col-lg-4  menu">
+                                <ul className="menu_inner menu_inner__active" >
+                                    <li className="current_page"><a>Продаж</a></li>
+                                    <li className="current_page_mobile"  onClick={() => this.goToMain()}><a>Головна сторінка</a></li>
+                                    <li><a><i className="fas fa-times" onClick={() => this.goToMain()}/></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -144,8 +156,9 @@ class SaleComponent extends Component {
                                             }
                                             </tbody>
                                         </table>
-                                        <ReactLoading className="react_loading"   hidden={!this.isEmpty()} type={"cylon"} color={"white"} height={500} width={500} />
+
                                     </div>
+                                <ReactLoading className="react_loading"   hidden={!this.isEmpty()} type={"cylon"} color={"white"} height={500} width={500} />
                             </div>
                         </div>
                     </section>

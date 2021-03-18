@@ -37,28 +37,40 @@ class MainPageComponent extends Component {
         this.props.history.push(`/sell`);
     }
 
+    openBurger(){
+        const menu = document.getElementById('header__menu');
+        menu.classList.toggle('show');
+    }
+
     render() {
         return (
 
             <div>
-                <header>
+                <header className="header lock-padding">
                     <div className="container-fluid p-0">
-                        <div className="row m-0">
-                            <div className="col-lg-4 p-0 menu">
-                                <ul className="menu_inner">
-
-                                    <li className="button_text" onClick={() => this.goToIncome()}>Прихід</li>
+                        <div className="header_wrapburg">
+                            <span className="title">BStorage</span>
+                            <div className="header__burger">
+                                <span id="trigger" onClick={() => {
+                                    this.openBurger()
+                                }}/>
+                            </div>
+                        </div>
+                        <div id="header__menu" className="row header__menu">
+                            <div className="col-lg-4 menu">
+                                <ul className="menu_inner"  onClick={() => this.goToIncome()}>
+                                    <li>
+                                        <a>Прихід</a></li>
                                 </ul>
                             </div>
-                            <div className="col-lg-4 p-0 menu">
-                                <ul className="menu_inner">
-
-                                    <li className="button_text" onClick={() => this.goToStorage()}>Склад</li>
+                            <div className="col-lg-4  menu">
+                                <ul className="menu_inner"  onClick={() => this.goToStorage()}>
+                                    <li><a>Склад</a></li>
                                 </ul>
                             </div>
-                            <div className="col-lg-4 p-0 menu">
-                                <ul className="menu_inner">
-                                    <li className="button_text" onClick={() => this.goToSale()}>Продаж</li>
+                            <div className="col-lg-4  menu">
+                                <ul className="menu_inner" onClick={() => this.goToSale()}>
+                                    <li><a>Продаж</a></li>
                                 </ul>
                             </div>
                         </div>

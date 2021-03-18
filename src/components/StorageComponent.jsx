@@ -175,53 +175,43 @@ class StorageComponent extends Component {
         this.cancel();
     }
 
+    openBurger() {
+        const menu = document.getElementById('header__menu');
+        menu.classList.toggle('show');
+    }
+
     render() {
         return (
 
             <div>
-                {/*<header>*/}
-                {/*    <div className="container-fluid p-0">*/}
-                {/*        <div className="row m-0">*/}
-                {/*            <div className="col-lg-4 p-0 menu">*/}
-                {/*                <ul className="menu_inner" onClick={() => this.goToIncome()}>*/}
-
-                {/*                    <li className="button_text" >Прихід</li>*/}
-                {/*                </ul>*/}
-                {/*            </div>*/}
-                {/*            <div className="col-lg-4 p-0 menu">*/}
-                {/*                <ul className="selected_menu_inner">*/}
-                {/*                    <li><span className="selected_button_text" >Склад</span>*/}
-                {/*                        <i className="fas fa-times" style={{color:"white"}}*/}
-                {/*                           aria-hidden="true" onClick={() => this.goToMain()}/>*/}
-                {/*                    </li>*/}
-                {/*                </ul>*/}
-                {/*            </div>*/}
-                {/*            <div className="col-lg-4 p-0 menu">*/}
-                {/*                <ul className="menu_inner" onClick={() => this.goToSale()}>*/}
-
-                {/*                    <li className="button_text" >Продаж</li>*/}
-                {/*                </ul>*/}
-                {/*            </div>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*</header>*/}
-
                 <header className="header lock-padding">
+
                     <div className="container-fluid p-0">
-                        <div className="row m-0">
-                            <div className="col-lg-4 p-0 menu">
+                        <div className="header_wrapburg">
+                            <span className="title">СКЛАД</span>
+                            <div className="header__burger">
+                                <span id="trigger" onClick={() => {
+                                    this.openBurger()
+                                }}/>
+                            </div>
+                        </div>
+                        <div id="header__menu" className="row header__menu">
+                            <div className="col-lg-4 menu">
+                                {/*<ul className="menu_inner ">*/}
+                                {/*    <li><a href="/income">Прихід</a></li>*/}
+                                {/*</ul>*/}
                                 <ul className="menu_inner" onClick={() => this.goToIncome()}>
                                     <li><a>Прихід</a></li>
                                 </ul>
                             </div>
-                            <div className="col-lg-4 p-0 menu">
+                            <div className="col-lg-4  menu">
                                 <ul className="menu_inner menu_inner__active">
-                                    <li><a>Склад</a></li>
-                                    <li><i className="fas fa-times" onClick={() => this.goToMain()} id="active_page"/>
-                                    </li>
+                                    <li className="current_page"><a>Склад</a></li>
+                                    <li className="current_page_mobile"  onClick={() => this.goToMain()}><a>Головна сторінка</a></li>
+                                    <li><a><i className="fas fa-times" onClick={() => this.goToMain()}/></a></li>
                                 </ul>
                             </div>
-                            <div className="col-lg-4 p-0 menu">
+                            <div className="col-lg-4  menu">
                                 <ul className="menu_inner" onClick={() => this.goToSale()}>
                                     <li><a>Продаж</a></li>
                                 </ul>
@@ -229,6 +219,30 @@ class StorageComponent extends Component {
                         </div>
                     </div>
                 </header>
+
+                {/*<header className="header lock-padding">*/}
+                {/*    <div className="container-fluid p-0">*/}
+                {/*        <div className="row m-0">*/}
+                {/*            <div className="col-lg-4 p-0 menu">*/}
+                {/*                <ul className="menu_inner" onClick={() => this.goToIncome()}>*/}
+                {/*                    <li><a>Прихід</a></li>*/}
+                {/*                </ul>*/}
+                {/*            </div>*/}
+                {/*            <div className="col-lg-4 p-0 menu">*/}
+                {/*                <ul className="menu_inner menu_inner__active">*/}
+                {/*                    <li><a>Склад</a></li>*/}
+                {/*                    <li><i className="fas fa-times" onClick={() => this.goToMain()} id="active_page"/>*/}
+                {/*                    </li>*/}
+                {/*                </ul>*/}
+                {/*            </div>*/}
+                {/*            <div className="col-lg-4 p-0 menu">*/}
+                {/*                <ul className="menu_inner" onClick={() => this.goToSale()}>*/}
+                {/*                    <li><a>Продаж</a></li>*/}
+                {/*                </ul>*/}
+                {/*            </div>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</header>*/}
 
                 <section className="search">
                     <div className="container">
@@ -246,60 +260,60 @@ class StorageComponent extends Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-12 frame__box">
-                                    <table>
-                                        <thead>
-                                        <tr className="table_head">
-                                            <th>№</th>
-                                            <th>ТИП</th>
-                                            <th>БРЕНД</th>
-                                            <th>МОДЕЛЬ</th>
-                                            <th>ОСТАННЯ ЦІНА</th>
-                                            <th>КІЛЬКІСТЬ</th>
-                                            <th>ДІЇ</th>
-                                        </tr>
-                                        </thead>
-                                        <script>
-                                            {this.state.number = 1}
-                                        </script>
-                                        <tbody>
+                                <table>
+                                    <thead>
+                                    <tr className="table_head">
+                                        <th>№</th>
+                                        <th>ТИП</th>
+                                        <th>БРЕНД</th>
+                                        <th>МОДЕЛЬ</th>
+                                        <th>ОСТАННЯ ЦІНА</th>
+                                        <th>КІЛЬКІСТЬ</th>
+                                        <th>ДІЇ</th>
+                                    </tr>
+                                    </thead>
+                                    <script>
+                                        {this.state.number = 1}
+                                    </script>
+                                    <tbody>
 
-                                        {
-                                            this.state.storages.map(
-                                                storage =>
-                                                    <tr key={storage.id} className="table_body">
-                                                        <td>{this.state.number++}</td>
-                                                        <td>{storage.type.type}</td>
-                                                        <td>{storage.brand.brand}</td>
-                                                        <td>{storage.model.model}</td>
-                                                        <td>{storage.lastPrice}</td>
-                                                        <td>{storage.amount}</td>
-                                                        <td>
-                                                            <button type="button" onClick={() => {
+                                    {
+                                        this.state.storages.map(
+                                            storage =>
+                                                <tr key={storage.id} className="table_body">
+                                                    <td>{this.state.number++}</td>
+                                                    <td>{storage.type.type}</td>
+                                                    <td>{storage.brand.brand}</td>
+                                                    <td>{storage.model.model}</td>
+                                                    <td>{storage.lastPrice}</td>
+                                                    <td>{storage.amount}</td>
+                                                    <td>
+                                                        <button type="button" onClick={() => {
 
-                                                                this.state.id = storage.id;
-                                                                this.state.type = storage.type.type;
-                                                                this.state.brand = storage.brand.brand;
-                                                                this.state.model = storage.model.model;
-                                                                this.state.maxAmount = storage.amount;
-                                                                this.sellForm();
-                                                            }}
-                                                                    id="addGoods" className="update_button"
-                                                            >Продати
-                                                            </button>
+                                                            this.state.id = storage.id;
+                                                            this.state.type = storage.type.type;
+                                                            this.state.brand = storage.brand.brand;
+                                                            this.state.model = storage.model.model;
+                                                            this.state.maxAmount = storage.amount;
+                                                            this.sellForm();
+                                                        }}
+                                                                id="addGoods" className="update_button"
+                                                        >Продати
+                                                        </button>
 
-                                                        </td>
-                                                    </tr>
-                                            )
-                                        }
-                                        </tbody>
+                                                    </td>
+                                                </tr>
+                                        )
+                                    }
+                                    </tbody>
 
 
-                                    </table>
+                                </table>
 
-                                    <ReactLoading className="react_loading" hidden={!this.isEmpty()}
-                                                  type={"cylon"} color={"white"} height={500} width={500}/>
-                                </div>
 
+                            </div>
+                            <ReactLoading className="react_loading" hidden={!this.isEmpty()}
+                                          type={"cylon"} color={"white"} height={500} width={500}/>
                         </div>
                     </div>
                 </section>

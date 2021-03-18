@@ -271,56 +271,74 @@ class IncomeComponent extends Component {
          this.cancel();
     }
 
-    isEmpty(){
+    isEmpty() {
         return this.state.nonFilteredGoods.length === 0;
     }
+
+
+
+    openBurger(){
+       const menu = document.getElementById('header__menu');
+        menu.classList.toggle('show');
+    }
+
+
+
 
     render() {
         return (
 
             <div>
                 {console.log(this.state.count++)}
+
                 {/*<header className="header lock-padding">*/}
                 {/*    <div className="container-fluid p-0">*/}
                 {/*        <div className="row m-0">*/}
                 {/*            <div className="col-lg-4 p-0 menu">*/}
-                {/*                <ul className="selected_menu_inner">*/}
-                {/*                    <li><span className="selected_button_text" >Прихід</span>*/}
-                {/*                        <i className="fas fa-times" style={{color:"white"}}*/}
-                {/*                           aria-hidden="true" onClick={() => this.goToMain()}/>*/}
-                {/*                    </li>*/}
+                {/*                <ul className="menu_inner menu_inner__active">*/}
+                {/*                    <li><a>Прихід</a></li>*/}
+                {/*                    <li><i className="fas fa-times" onClick={() => this.goToMain()} id="active_page"/></li>*/}
                 {/*                </ul>*/}
                 {/*            </div>*/}
-
                 {/*            <div className="col-lg-4 p-0 menu">*/}
                 {/*                <ul className="menu_inner" onClick={() => this.goToStorage()}>*/}
-
-                {/*                    <li className="button_text" >Склад</li>*/}
+                {/*                    <li><a >Склад</a></li>*/}
                 {/*                </ul>*/}
                 {/*            </div>*/}
                 {/*            <div className="col-lg-4 p-0 menu">*/}
                 {/*                <ul className="menu_inner" onClick={() => this.goToSale()}>*/}
-                {/*                    <li className="button_text" >Продаж</li>*/}
+                {/*                    <li><a>Продаж</a></li>*/}
                 {/*                </ul>*/}
                 {/*            </div>*/}
                 {/*        </div>*/}
                 {/*    </div>*/}
                 {/*</header>*/}
+
                 <header className="header lock-padding">
                     <div className="container-fluid p-0">
-                        <div className="row m-0">
-                            <div className="col-lg-4 p-0 menu">
+                        <div className="header_wrapburg">
+                            <span className="title">ПРИХІД</span>
+                            <div className="header__burger">
+                                <span id="trigger" onClick={() => {
+                                    this.openBurger()
+                                }}/>
+                            </div>
+                        </div>
+                        <div id="header__menu" className="row header__menu">
+                            <div className="col-lg-4 menu">
                                 <ul className="menu_inner menu_inner__active">
-                                    <li><a>Прихід</a></li>
-                                    <li><i className="fas fa-times" onClick={() => this.goToMain()} id="active_page"/></li>
+                                    <li className="current_page"><a>Прихід</a></li>
+                                    <li className="current_page_mobile"  onClick={() => this.goToMain()}><a>Головна сторінка</a></li>
+                                    <li><a><i className="fas fa-times" onClick={() => this.goToMain()}/></a></li>
+
                                 </ul>
                             </div>
-                            <div className="col-lg-4 p-0 menu">
-                                <ul className="menu_inner" onClick={() => this.goToStorage()}>
-                                    <li><a >Склад</a></li>
+                            <div className="col-lg-4  menu">
+                                <ul className="menu_inner"  onClick={() => this.goToStorage()}>
+                                    <li><a>Склад</a></li>
                                 </ul>
                             </div>
-                            <div className="col-lg-4 p-0 menu">
+                            <div className="col-lg-4  menu">
                                 <ul className="menu_inner" onClick={() => this.goToSale()}>
                                     <li><a>Продаж</a></li>
                                 </ul>
@@ -328,6 +346,7 @@ class IncomeComponent extends Component {
                         </div>
                     </div>
                 </header>
+
 
                 <section className="search">
                     <div className="container">
@@ -415,8 +434,8 @@ class IncomeComponent extends Component {
 
                                         </table>
 
-                                        <ReactLoading className="react_loading"   hidden={!this.isEmpty()} type={"cylon"} color={"white"} height={500} width={500} />
                                     </div>
+                                    <ReactLoading className="react_loading"   hidden={!this.isEmpty()} type={"cylon"} color={"white"} height={500} width={500} />
                                 </div>
                             </div>
                         </div>
