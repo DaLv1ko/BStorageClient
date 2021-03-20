@@ -11,7 +11,6 @@ class StorageComponent extends Component {
         super(props)
 
 
-
         this.state = {
             storages: [],
             number: null,
@@ -39,7 +38,7 @@ class StorageComponent extends Component {
         let amountValid = this.state.amountValid;
         switch (fieldName) {
             case 'amount':
-                if (value <= this.state.maxAmount && value>0) {
+                if (value <= this.state.maxAmount && value > 0) {
                     amountValid = true
                 } else {
                     amountValid = false;
@@ -100,7 +99,7 @@ class StorageComponent extends Component {
     componentDidMount() {
         StorageService.getStorage().then((res) => {
             this.setState({storages: res.data});
-        },error=>{
+        }, error => {
             this.props.history.push('/login')
         });
     }
@@ -118,7 +117,7 @@ class StorageComponent extends Component {
     }
 
     cancel() {
-        this.state.formErrors.amount=''
+        this.state.formErrors.amount = ''
         this.state.id = ''
         this.state.type = ''
         this.state.brand = ''
@@ -160,201 +159,235 @@ class StorageComponent extends Component {
         this.setState({debt: event.target.value})
     }
 
-    isEmpty(){
+    isEmpty() {
         return this.state.storages.length === 0;
     }
 
-    sellForm(){
-        this.setState({addOrUpdate:'_add'});
+    sellForm() {
+        this.setState({addOrUpdate: '_add'});
         let popup = document.getElementById('popup');
         popup.classList.add('open');
     }
 
-    closeForm(){
+    closeForm() {
         let popup = document.getElementById('popup');
         popup.classList.remove('open');
         this.cancel();
+    }
+
+    openBurger() {
+        const menu = document.getElementById('header__menu');
+        menu.classList.toggle('show');
     }
 
     render() {
         return (
 
             <div>
-                <header>
+                <header className="header lock-padding">
+
                     <div className="container-fluid p-0">
-                        <div className="row m-0">
-                            <div className="col-lg-4 p-0 menu">
+                        <div className="header_wrapburg">
+                            <span className="title">СКЛАД</span>
+                            <div className="header__burger">
+                                <span id="trigger" onClick={() => {
+                                    this.openBurger()
+                                }}/>
+                            </div>
+                        </div>
+                        <div id="header__menu" className="row header__menu">
+                            <div className="col-lg-4 menu">
+                                {/*<ul className="menu_inner ">*/}
+                                {/*    <li><a href="/income">Прихід</a></li>*/}
+                                {/*</ul>*/}
                                 <ul className="menu_inner" onClick={() => this.goToIncome()}>
-
-                                    <li className="button_text" >Прихід</li>
+                                    <li><a>Прихід</a></li>
                                 </ul>
                             </div>
-                            <div className="col-lg-4 p-0 menu">
-                                <ul className="selected_menu_inner">
-                                    <li><span className="selected_button_text" >Склад</span>
-                                        <i className="fas fa-times" style={{color:"white"}}
-                                           aria-hidden="true" onClick={() => this.goToMain()}/>
-                                    </li>
+                            <div className="col-lg-4  menu">
+                                <ul className="menu_inner menu_inner__active">
+                                    <li className="current_page"><a>Склад</a></li>
+                                    <li className="current_page_mobile"  onClick={() => this.goToMain()}><a>Головна сторінка</a></li>
+                                    <li><a><i className="fas fa-times" onClick={() => this.goToMain()}/></a></li>
                                 </ul>
                             </div>
-                            <div className="col-lg-4 p-0 menu">
+                            <div className="col-lg-4  menu">
                                 <ul className="menu_inner" onClick={() => this.goToSale()}>
-
-                                    <li className="button_text" >Продаж</li>
+                                    <li><a>Продаж</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </header>
 
+                {/*<header className="header lock-padding">*/}
+                {/*    <div className="container-fluid p-0">*/}
+                {/*        <div className="row m-0">*/}
+                {/*            <div className="col-lg-4 p-0 menu">*/}
+                {/*                <ul className="menu_inner" onClick={() => this.goToIncome()}>*/}
+                {/*                    <li><a>Прихід</a></li>*/}
+                {/*                </ul>*/}
+                {/*            </div>*/}
+                {/*            <div className="col-lg-4 p-0 menu">*/}
+                {/*                <ul className="menu_inner menu_inner__active">*/}
+                {/*                    <li><a>Склад</a></li>*/}
+                {/*                    <li><i className="fas fa-times" onClick={() => this.goToMain()} id="active_page"/>*/}
+                {/*                    </li>*/}
+                {/*                </ul>*/}
+                {/*            </div>*/}
+                {/*            <div className="col-lg-4 p-0 menu">*/}
+                {/*                <ul className="menu_inner" onClick={() => this.goToSale()}>*/}
+                {/*                    <li><a>Продаж</a></li>*/}
+                {/*                </ul>*/}
+                {/*            </div>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</header>*/}
 
                 <section className="search">
                     <div className="container">
                         <div className="row">
-                            <div className="col-lg-12 d-flex justify-content-center">
+                            <div className="col-12 search_box">
                                 <input type="text" name='model' placeholder='Пошук...' className='search_form__inner'/>
-                                <input className="search_but" type="submit" value="Знайти"/>
+                                <input className="search_but dandruff" type="submit" value="Знайти"/>
                             </div>
                         </div>
                     </div>
                 </section>
 
 
+                <section className="frame">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-12 frame__box">
+                                <table>
+                                    <thead>
+                                    <tr className="table_head">
+                                        <th>№</th>
+                                        <th>ТИП</th>
+                                        <th>БРЕНД</th>
+                                        <th>МОДЕЛЬ</th>
+                                        <th>ОСТАННЯ ЦІНА</th>
+                                        <th>КІЛЬКІСТЬ</th>
+                                        <th>ДІЇ</th>
+                                    </tr>
+                                    </thead>
+                                    <script>
+                                        {this.state.number = 1}
+                                    </script>
+                                    <tbody>
+
+                                    {
+                                        this.state.storages.map(
+                                            storage =>
+                                                <tr key={storage.id} className="table_body">
+                                                    <td>{this.state.number++}</td>
+                                                    <td>{storage.type.type}</td>
+                                                    <td>{storage.brand.brand}</td>
+                                                    <td>{storage.model.model}</td>
+                                                    <td>{storage.lastPrice}</td>
+                                                    <td>{storage.amount}</td>
+                                                    <td>
+                                                        <button type="button" onClick={() => {
+
+                                                            this.state.id = storage.id;
+                                                            this.state.type = storage.type.type;
+                                                            this.state.brand = storage.brand.brand;
+                                                            this.state.model = storage.model.model;
+                                                            this.state.maxAmount = storage.amount;
+                                                            this.sellForm();
+                                                        }}
+                                                                id="addGoods" className="update_button"
+                                                        >Продати
+                                                        </button>
+
+                                                    </td>
+                                                </tr>
+                                        )
+                                    }
+                                    </tbody>
 
 
-                    <section className="frame">
-
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-12 d-flex justify-content-center">
-                                    <div className="table-box">
-                                        <table>
-                                            <thead>
-                                            <tr class="table_head">
-                                                <th>№</th>
-                                                <th>ТИП</th>
-                                                <th>БРЕНД</th>
-                                                <th>МОДЕЛЬ</th>
-                                                <th>ОСТАННЯ ЦІНА</th>
-                                                <th>КІЛЬКІСТЬ</th>
-                                                <th>ДІЇ</th>
-                                            </tr>
-                                            </thead>
-                                            <script>
-                                                {this.state.number = 1}
-                                            </script>
-                                            <tbody>
-
-                                            {
-                                                this.state.storages.map(
-                                                    storage =>
-                                                        <tr key={storage.id} className="table_body">
-                                                            <td>{this.state.number++}</td>
-                                                            <td>{storage.type.type}</td>
-                                                            <td>{storage.brand.brand}</td>
-                                                            <td>{storage.model.model}</td>
-                                                            <td>{storage.lastPrice}</td>
-                                                            <td>{storage.amount}</td>
-                                                            <td>
-                                                                <button type="button" onClick={() => {
-
-                                                                    this.state.id = storage.id;
-                                                                    this.state.type = storage.type.type;
-                                                                    this.state.brand = storage.brand.brand;
-                                                                    this.state.model = storage.model.model;
-                                                                    this.state.maxAmount = storage.amount;
-                                                                    this.sellForm();
-                                                                }}
-                                                                   id="addGoods" className="update_button"
-                                                                >Продати
-                                                                </button>
-
-                                                            </td>
-                                                        </tr>
-                                                )
-                                            }
-                                            </tbody>
+                                </table>
 
 
+                            </div>
+                            <ReactLoading className="react_loading" hidden={!this.isEmpty()}
+                                          type={"cylon"} color={"white"} height={500} width={500}/>
+                        </div>
+                    </div>
+                </section>
+                <section id='popup' className="popup">
+                    <div className="popup_body">
+                        <div className="popup_content">
+                            <a onClick={() => this.closeForm()} className="popup_close"><i
+                                className="fas fa-times" aria-hidden="true"/></a>
 
-                                        </table>
-
-                                        <ReactLoading className="react_loading"   hidden={!this.isEmpty()} type={"bubbles"} color={"white"} height={500} width={500} />
-
-                                    </div>
+                            <form className="popup-form">
+                                <div className="popup-box">
+                                    <h3 className="title">Продати</h3>
                                 </div>
-                            </div>
+                                <div className="popup-box">
+                                    <label>Тип </label>
+                                    <input placeholder="tv/phone/..." name="type" value={this.state.type}
+                                           list="types"/>
+                                </div>
+                                <div className="popup-box">
+                                    <label>Бренд </label>
+                                    <input placeholder="samsung/lg/..." name="brand" value={this.state.brand}
+                                           list="brands"/>
+                                </div>
+                                <div className="popup-box">
+                                    <label>Модель </label>
+                                    <input placeholder="nu7120/kj312/..." name="model" value={this.state.model}
+                                           list="models"/>
+                                </div>
+
+                                <div className="popup-box">
+                                    <label>Ціна </label>
+                                    <input placeholder="UAH" name="price" value={this.state.price}
+                                           onChange={this.changePriceHandler}/>
+                                </div>
+                                <div>
+                                    <FormErrors formErrors={this.state.formErrors}/>
+                                </div>
+                                <div className="popup-box">
+                                    <label>Кількість </label>
+
+                                    <input type="number" placeholder="1+" name="amount" max={this.state.maxAmount}
+                                           value={this.state.amount}
+                                           onChange={this.handleUserInput}/>
+                                </div>
+                                <div className="popup-box">
+                                    <label>Покупець </label>
+                                    <input placeholder="ииии" name="customer" value={this.state.customer}
+                                           onChange={this.changeCustomerHandler}/>
+                                </div>
+                                <div className="popup-box">
+                                    <label>Борг </label>
+                                    <input placeholder="UAH" name="debt" value={this.state.debt}
+                                           onChange={this.changeDebtHandler}/>
+                                </div>
+                                <div className="popup-box">
+                                    <label>Дата </label>
+                                    <input placeholder="xxxx-xx-xx" name="date" value={this.state.date}
+                                           onChange={this.changeDateHandler}/>
+                                </div>
+                                <div className="popup-box">
+                                    <button type="button" className="add_button" disabled={!this.state.formValid}
+                                            onClick={() => {
+                                                this.sellStorage();
+                                            }
+                                            }>Продати
+                                    </button>
+                                    <button type="button" onClick={() => this.closeForm()}
+                                            className="cancel_button">Скасувати
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                    </section>
-                    <section id='popup' className="popup">
-                        <div className="popup_body">
-                            <div className="popup_content">
-                                <a onClick={()=>this.closeForm()} className="popup_close"><i
-                                    className="fas fa-times" aria-hidden="true"/></a>
-
-                                <form className="popup-form">
-                                    <div className="popup-box">
-                                        <h3 className="title">Продати</h3>
-                                    </div>
-                                    <div className="popup-box">
-                                        <label>Тип </label>
-                                        <input placeholder="tv/phone/..." name="type" value={this.state.type}
-                                               list="types"/>
-                                    </div>
-                                    <div className="popup-box">
-                                        <label>Бренд </label>
-                                        <input placeholder="samsung/lg/..." name="brand" value={this.state.brand}
-                                               list="brands"/>
-                                    </div>
-                                    <div className="popup-box">
-                                        <label>Модель </label>
-                                        <input placeholder="nu7120/kj312/..." name="model" value={this.state.model}
-                                               list="models"/>
-                                    </div>
-
-                                    <div className="popup-box">
-                                        <label>Ціна </label>
-                                        <input placeholder="UAH" name="price" value={this.state.price}
-                                               onChange={this.changePriceHandler}/>
-                                    </div>
-                                    <div>
-                                        <FormErrors formErrors={this.state.formErrors}/>
-                                    </div>
-                                    <div className="popup-box">
-                                        <label>Кількість </label>
-
-                                        <input type="number" placeholder="1+" name="amount" max={this.state.maxAmount} value={this.state.amount}
-                                               onChange={this.handleUserInput}/>
-                                    </div>
-                                    <div className="popup-box">
-                                        <label>Покупець </label>
-                                        <input placeholder="ииии" name="customer" value={this.state.customer}
-                                               onChange={this.changeCustomerHandler}/>
-                                    </div>
-                                    <div className="popup-box">
-                                        <label>Борг </label>
-                                        <input placeholder="UAH" name="debt" value={this.state.debt}
-                                               onChange={this.changeDebtHandler}/>
-                                    </div>
-                                    <div className="popup-box">
-                                        <label>Дата </label>
-                                        <input placeholder="xxxx-xx-xx" name="date" value={this.state.date}
-                                               onChange={this.changeDateHandler}/>
-                                    </div>
-                                    <div className="popup-box">
-                                        <button type="button" className="add_button" disabled={!this.state.formValid}
-                                           onClick={() => {
-                                               this.sellStorage();
-                                           }
-                                           }>Продати
-                                        </button>
-                                        <button type="button" onClick={() => this.closeForm()} className="cancel_button" >Скасувати
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </section>
+                    </div>
+                </section>
 
             </div>
 

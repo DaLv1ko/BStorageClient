@@ -39,31 +39,68 @@ class SaleComponent extends Component {
         return this.state.sales.length === 0;
     }
 
+    openBurger(){
+        const menu = document.getElementById('header__menu');
+        menu.classList.toggle('show');
+    }
+
     render() {
         return (
 
             <div>
-                <header>
+                {/*<header>*/}
+                {/*    <div className="container-fluid p-0">*/}
+                {/*        <div className="row m-0">*/}
+                {/*            <div className="col-lg-4 p-0 menu">*/}
+                {/*                <ul className="menu_inner" onClick={() => this.goToIncome()}>*/}
+
+                {/*                    <li className="button_text" >Прихід</li>*/}
+                {/*                </ul>*/}
+                {/*            </div>*/}
+                {/*            <div className="col-lg-4 p-0 menu">*/}
+                {/*                <ul className="menu_inner" onClick={()=> this.goToStorage()}>*/}
+
+                {/*                    <li className="button_text" >Склад</li>*/}
+                {/*                </ul>*/}
+                {/*            </div>*/}
+                {/*            <div className="col-lg-4 p-0 menu">*/}
+                {/*                <ul className="selected_menu_inner">*/}
+                {/*                    <li><span className="selected_button_text" >Продаж</span>*/}
+                {/*                        <i className="fas fa-times" style={{color:"white"}}*/}
+                {/*                           aria-hidden="true" onClick={() => this.goToMain()}/>*/}
+                {/*                    </li>*/}
+                {/*                </ul>*/}
+                {/*            </div>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</header>*/}
+
+                <header className="header lock-padding">
                     <div className="container-fluid p-0">
-                        <div className="row m-0">
-                            <div className="col-lg-4 p-0 menu">
+                        <div className="header_wrapburg">
+                            <span className="title">ПРОДАЖ</span>
+                            <div className="header__burger">
+                                <span id="trigger" onClick={() => {
+                                    this.openBurger()
+                                }}/>
+                            </div>
+                        </div>
+                        <div id="header__menu" className="row header__menu">
+                            <div className="col-lg-4 menu">
                                 <ul className="menu_inner" onClick={() => this.goToIncome()}>
-
-                                    <li className="button_text" >Прихід</li>
+                                    <li><a>Прихід</a></li>
                                 </ul>
                             </div>
-                            <div className="col-lg-4 p-0 menu">
-                                <ul className="menu_inner" onClick={()=> this.goToStorage()}>
-
-                                    <li className="button_text" >Склад</li>
+                            <div className="col-lg-4  menu">
+                                <ul className="menu_inner"  onClick={() => this.goToStorage()}>
+                                    <li><a>Склад</a></li>
                                 </ul>
                             </div>
-                            <div className="col-lg-4 p-0 menu">
-                                <ul className="selected_menu_inner">
-                                    <li><span className="selected_button_text" >Продаж</span>
-                                        <i className="fas fa-times" style={{color:"white"}}
-                                           aria-hidden="true" onClick={() => this.goToMain()}/>
-                                    </li>
+                            <div className="col-lg-4  menu">
+                                <ul className="menu_inner menu_inner__active" >
+                                    <li className="current_page"><a>Продаж</a></li>
+                                    <li className="current_page_mobile"  onClick={() => this.goToMain()}><a>Головна сторінка</a></li>
+                                    <li><a><i className="fas fa-times" onClick={() => this.goToMain()}/></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -74,9 +111,9 @@ class SaleComponent extends Component {
                 <section className="search">
                     <div className="container">
                         <div className="row">
-                            <div className="col-lg-12 d-flex justify-content-center">
+                            <div className="col-12 search_box">
                                 <input type="text" name='model' placeholder='Пошук...' className='search_form__inner'/>
-                                <input className="search_but" type="submit" value="Знайти"/>
+                                <input className="search_but dandruff" type="submit" value="Знайти"/>
                             </div>
                         </div>
                     </div>
@@ -86,8 +123,7 @@ class SaleComponent extends Component {
                     <section className="frame">
                         <div className="container">
                             <div className="row">
-                                <div className="col-12 d-flex justify-content-center">
-                                    <div className="table-box">
+                                <div className="col-12 frame__box">
                                         <table>
                                             <thead>
                                             <tr className="table_head">
@@ -119,12 +155,10 @@ class SaleComponent extends Component {
                                                 )
                                             }
                                             </tbody>
-
-
                                         </table>
-                                        <ReactLoading className="react_loading"   hidden={!this.isEmpty()} type={"bubbles"} color={"white"} height={500} width={500} />
+
                                     </div>
-                                </div>
+                                <ReactLoading className="react_loading"   hidden={!this.isEmpty()} type={"cylon"} color={"white"} height={500} width={500} />
                             </div>
                         </div>
                     </section>
