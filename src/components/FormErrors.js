@@ -2,11 +2,14 @@
 import React from 'react';
 
 export const FormErrors = ({formErrors}) =>
-    <div className='formErrors'>
+    <div className="errors_div">
         {Object.keys(formErrors).map((fieldName, i) => {
             if(formErrors[fieldName].length > 0){
                 return (
-                    <p className="error_form" key={i}>Кількість {formErrors[fieldName]}</p>
+                    <div className="popup-box popup-box-butt">
+                        <p className="error_form" key={i}> {formErrors[fieldName]}</p>
+                    </div>
+
                 )
             } else {
                 return '';

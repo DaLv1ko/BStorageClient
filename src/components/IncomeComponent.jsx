@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import GoodsIncomeService from "../services/IncomeService";
 import '../css/income.css';
 import ReactLoading from "react-loading";
+import {FormErrors} from "./FormErrors";
 
 class IncomeComponent extends Component {
 
@@ -9,14 +10,14 @@ class IncomeComponent extends Component {
         super(props)
 
         let today = new Date(),
-             date = today.getDate() + '.' + ((today.getMonth()+1 < 10 ? '0' : '') + (today.getMonth()+1)) + '.' + today.getFullYear();
+            date = today.getDate() + '.' + ((today.getMonth() + 1 < 10 ? '0' : '') + (today.getMonth() + 1)) + '.' + today.getFullYear();
 
         this.state = {
             goods: [],
             brands: [],
-            models:[],
-            types:[],
-            suppliers:[],
+            models: [],
+            types: [],
+            suppliers: [],
             search: '',
             nonFilteredGoods: [],
             number: null,
@@ -29,9 +30,18 @@ class IncomeComponent extends Component {
             amount: '',
             supplier: '',
             date: '',
-            count:1,
-            currentDate:date,
-            addDate:true,
+            count: 1,
+            currentDate: date,
+            addDate: true,
+            formErrors: {
+                amount: '',
+                price: '',
+                date: '',
+            },
+            formValid: false,
+            dateValid: false,
+            amountValid: false,
+            priceValid: false
         }
 
 
@@ -49,6 +59,61 @@ class IncomeComponent extends Component {
 
     }
 
+    validateField(fieldName, value) {
+        let fieldValidationErrors = this.state.formErrors;
+        let amountValid = this.state.amountValid;
+        let priceValid = this.state.priceValid;
+        let dateValid = this.state.dateValid;
+
+        switch (fieldName) {
+            case 'amount': {
+                if (value > 0 && Number.isInteger(+value)) {
+                    amountValid = true
+                } else {
+                    amountValid = false;
+                }
+                fieldValidationErrors.amount = amountValid ? '' : 'Кількість некоректна';
+                break;
+            }
+
+            case 'price': {
+                if (value > 0 && Number.isInteger(+value)) {
+                    priceValid = true
+                } else {
+                    priceValid = false;
+                }
+                fieldValidationErrors.price = priceValid ? '' : 'Ціна некоректна';
+                break;
+            }
+            case 'date': {
+                if (/^\s*(3[01]|[12][0-9]|0[1-9])\.(1[012]|0[1-9])\.((?:19|20)\d{2})\s*$/g.test(value)) {
+                    dateValid = true
+                } else {
+                    dateValid = false;
+                }
+                fieldValidationErrors.date = dateValid ? '' : 'Дата некоректна';
+                break;
+            }
+
+            default:
+                break;
+        }
+        this.setState({
+            formErrors: fieldValidationErrors,
+            amountValid: amountValid,
+            priceValid: priceValid,
+            dateValid: dateValid,
+
+        }, this.validateForm);
+    }
+
+
+    validateForm() {
+        this.setState({
+            formValid: this.state.amountValid && this.state.amountValid && this.state.dateValid
+        })
+    };
+
 
     goToStorage() {
         this.props.history.push(`/storage`);
@@ -57,6 +122,7 @@ class IncomeComponent extends Component {
     goToSale() {
         this.props.history.push(`/sell`);
     }
+
     goToMain() {
         this.props.history.push(`/main`);
     }
@@ -64,43 +130,48 @@ class IncomeComponent extends Component {
     componentDidMount() {
 
         GoodsIncomeService.getIncome().then((res) => {
-            this.setState({goods: res.data});
-            this.setState({nonFilteredGoods: res.data});
-            console.log("qwe1")
+                this.setState({goods: res.data});
+                this.setState({nonFilteredGoods: res.data});
+                console.log("qwe1")
 
-        },error=>{
-            this.props.history.push('/login')
+            }, error => {
+                this.props.history.push('/login')
             }
-            );
+        );
 
         GoodsIncomeService.getBrands().then((res) => {
             this.setState({brands: res.data});
             console.log("wqe2")
-        }); GoodsIncomeService.getModels().then((res) => {
+        });
+        GoodsIncomeService.getModels().then((res) => {
             this.setState({models: res.data});
             console.log("wqe3")
-        }); GoodsIncomeService.getSuppliers().then((res) => {
+        });
+        GoodsIncomeService.getSuppliers().then((res) => {
             this.setState({suppliers: res.data});
             console.log("weq4")
-        }); GoodsIncomeService.getTypes().then((res) => {
+        });
+        GoodsIncomeService.getTypes().then((res) => {
             this.setState({types: res.data});
             console.log("ewq5")
         });
 
-        if(this.state.id!==''){GoodsIncomeService.getIncomeById(this.state.id).then((res) => {
-            console.log("ШОСЬ НЕ ТАК")
-            let income = res.data;
-            this.setState({
-                type: income.type.type,
-                brand: income.brand.brand,
-                model: income.model.model,
-                price: income.price,
-                amount: income.amount,
-                supplier: income.supplier.supplier,
-                date: income.date
-            })
-            console.log("weq6")
-        });}
+        if (this.state.id !== '') {
+            GoodsIncomeService.getIncomeById(this.state.id).then((res) => {
+                console.log("ШОСЬ НЕ ТАК")
+                let income = res.data;
+                this.setState({
+                    type: income.type.type,
+                    brand: income.brand.brand,
+                    model: income.model.model,
+                    price: income.price,
+                    amount: income.amount,
+                    supplier: income.supplier.supplier,
+                    date: income.date
+                })
+                console.log("weq6")
+            });
+        }
 
 
     }
@@ -124,8 +195,8 @@ class IncomeComponent extends Component {
             GoodsIncomeService.addIncome(income).then(res => {
                 console.log(res.data);
                 let fullIncome = res.data;
-                this.state.goods.push(fullIncome)
-                this.setState({goods: this.state.goods})
+                this.state.goods.unshift(fullIncome);
+                this.setState({goods: this.state.goods});
             });
             this.closeForm();
         } else {
@@ -174,6 +245,9 @@ class IncomeComponent extends Component {
     }
 
     cancel() {
+        this.state.formErrors.amount = ''
+        this.state.formErrors.price = ''
+        this.state.formErrors.date = ''
         this.setState({addOrUpdate: ''})
         this.setState({id: ''})
         this.setState({type: ''})
@@ -183,7 +257,7 @@ class IncomeComponent extends Component {
         this.setState({amount: ''})
         this.setState({supplier: ''})
         this.setState({date: ''})
-        this.setState({addDate:true})
+        this.setState({addDate: true})
     }
 
     changeTypeHandler = (event) => {
@@ -197,9 +271,11 @@ class IncomeComponent extends Component {
     }
     changePriceHandler = (event) => {
         this.setState({price: event.target.value})
+        this.handleUserInput(event);
     }
     changeAmountHandler = (event) => {
         this.setState({amount: event.target.value})
+        this.handleUserInput(event);
     }
     changeSupplierHandler = (event) => {
         this.setState({supplier: event.target.value})
@@ -207,21 +283,28 @@ class IncomeComponent extends Component {
     changeDateHandler = (event) => {
         this.setState({date: event.target.value})
         this.setState({addDate: false})
-    }
-    // changeAddDateHandler = (event) => {
-    //     this.setState({currentDate: event.target.value})
-    // }
+        this.handleUserInput(event);
 
+    }
+
+    handleUserInput = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        this.setState({[name]: value},
+            () => {
+                this.validateField(name, value)
+            });
+    }
 
     getButton() {
         if (this.state.addOrUpdate === '_add') {
-            return <button type="button" className="add_button" onClick={() => {
+            return <button disabled={!this.state.formValid} type="button" className="search_but__popup" onClick={() => {
                 this.addOrUpdateIncome();
             }
             }>Додати
             </button>
         } else {
-            return <button  type="button" className="add_button" onClick={() => {
+            return <button disabled={!this.state.formValid} type="button" className="search_but__popup" onClick={() => {
 
                 this.addOrUpdateIncome();
             }
@@ -231,44 +314,44 @@ class IncomeComponent extends Component {
     }
 
     getDateInput() {
-        console.log(this.state.currentDate);
         if (this.state.addOrUpdate === '_add') {
 
 
-            if(this.state.addDate){this.state.date=this.state.currentDate;}
-            return  <input placeholder="дд.мм.рррр" name="date" value={this.state.date}
-                           onChange={this.changeDateHandler}/>
+            if (this.state.addDate) {
+                this.state.date = this.state.currentDate;
+            }
+            return <input placeholder="дд.мм.рррр" name="date" value={this.state.date}
+                          onChange={this.changeDateHandler}/>
         } else {
-            return <input  placeholder="дд.мм.рррр" name="date" value={this.state.date}
+            return <input placeholder="дд.мм.рррр" name="date" value={this.state.date}
                           onChange={this.changeDateHandler}/>
         }
     }
 
     getTitle() {
         if (this.state.addOrUpdate === '_add') {
-            return <h3 className="title">Додати товар</h3>
+            return <h2 className="title_form add_title_form">Додати товар</h2>
         } else {
-            return <h3 className="title">Редагувати товар</h3>
+            return <h2 className="title_form">Редагувати товар</h2>
         }
     }
 
 
-
-    addForm(){
-        this.setState({addOrUpdate:'_add'});
+    addForm() {
+        this.setState({addOrUpdate: '_add'});
         let popup = document.getElementById('popup');
         popup.classList.add('open');
     }
 
-    updateForm(){
+    updateForm() {
         let popup = document.getElementById('popup');
         popup.classList.add('open');
     }
 
-     closeForm(){
-         let popup = document.getElementById('popup');
-         popup.classList.remove('open');
-         this.cancel();
+    closeForm() {
+        let popup = document.getElementById('popup');
+        popup.classList.remove('open');
+        this.cancel();
     }
 
     isEmpty() {
@@ -276,44 +359,17 @@ class IncomeComponent extends Component {
     }
 
 
-
-    openBurger(){
-       const menu = document.getElementById('header__menu');
+    openBurger() {
+        const menu = document.getElementById('header__menu');
         menu.classList.toggle('show');
     }
-
-
 
 
     render() {
         return (
 
             <div>
-                {console.log(this.state.count++)}
-
-                {/*<header className="header lock-padding">*/}
-                {/*    <div className="container-fluid p-0">*/}
-                {/*        <div className="row m-0">*/}
-                {/*            <div className="col-lg-4 p-0 menu">*/}
-                {/*                <ul className="menu_inner menu_inner__active">*/}
-                {/*                    <li><a>Прихід</a></li>*/}
-                {/*                    <li><i className="fas fa-times" onClick={() => this.goToMain()} id="active_page"/></li>*/}
-                {/*                </ul>*/}
-                {/*            </div>*/}
-                {/*            <div className="col-lg-4 p-0 menu">*/}
-                {/*                <ul className="menu_inner" onClick={() => this.goToStorage()}>*/}
-                {/*                    <li><a >Склад</a></li>*/}
-                {/*                </ul>*/}
-                {/*            </div>*/}
-                {/*            <div className="col-lg-4 p-0 menu">*/}
-                {/*                <ul className="menu_inner" onClick={() => this.goToSale()}>*/}
-                {/*                    <li><a>Продаж</a></li>*/}
-                {/*                </ul>*/}
-                {/*            </div>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*</header>*/}
-
+                {/*{console.log(this.state.count++)}*/}
                 <header className="header lock-padding">
                     <div className="container-fluid p-0">
                         <div className="header_wrapburg">
@@ -328,13 +384,14 @@ class IncomeComponent extends Component {
                             <div className="col-lg-4 menu">
                                 <ul className="menu_inner menu_inner__active">
                                     <li className="current_page"><a>Прихід</a></li>
-                                    <li className="current_page_mobile"  onClick={() => this.goToMain()}><a>Головна сторінка</a></li>
+                                    <li className="current_page_mobile" onClick={() => this.goToMain()}><a>Головна
+                                        сторінка</a></li>
                                     <li><a><i className="fas fa-times" onClick={() => this.goToMain()}/></a></li>
 
                                 </ul>
                             </div>
                             <div className="col-lg-4  menu">
-                                <ul className="menu_inner"  onClick={() => this.goToStorage()}>
+                                <ul className="menu_inner" onClick={() => this.goToStorage()}>
                                     <li><a>Склад</a></li>
                                 </ul>
                             </div>
@@ -354,9 +411,9 @@ class IncomeComponent extends Component {
                             <div className="col-12 search_box">
 
                                 <a id="addGoods" className="search_but popup_link"
-                                    onClick={() => {
-                                        this.addForm();
-                                    }}>Додати товар</a>
+                                   onClick={() => {
+                                       this.addForm();
+                                   }}>Додати товар</a>
                             </div>
 
                         </div>
@@ -364,7 +421,8 @@ class IncomeComponent extends Component {
                             <div className="col-12 search_box">
                                 <input id="search" value={this.state.search} onChange={this.changeFilterHandler}
                                        type="text" name='model' placeholder='Пошук...' className='search_form__inner'/>
-                                <button className="search_but dandruff" onClick={() => this.searchIncome()}>Знайти</button>
+                                <button className="search_but dandruff" onClick={() => this.searchIncome()}>Знайти
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -391,7 +449,7 @@ class IncomeComponent extends Component {
                                             </tr>
                                             </thead>
                                             <script>
-                                                {this.state.number=1}
+                                                {this.state.number = 1}
                                             </script>
                                             <tbody>
                                             {
@@ -409,18 +467,18 @@ class IncomeComponent extends Component {
                                                             <td>{income.date}</td>
                                                             <td>
                                                                 <a onClick={() => {
-                                                                    this.setState({addOrUpdate:'update'})
-                                                                    this.setState({id:income.id})
-                                                                    this.setState({type:income.type.type})
-                                                                    this.setState({brand:income.brand.brand})
-                                                                    this.setState({model:income.model.model})
-                                                                    this.setState({price:income.price})
-                                                                    this.setState({amount:income.amount})
-                                                                    this.setState({supplier:income.supplier.supplier})
-                                                                    this.setState({date:income.date})
+                                                                    this.setState({addOrUpdate: 'update'})
+                                                                    this.setState({id: income.id})
+                                                                    this.setState({type: income.type.type})
+                                                                    this.setState({brand: income.brand.brand})
+                                                                    this.setState({model: income.model.model})
+                                                                    this.setState({price: income.price})
+                                                                    this.setState({amount: income.amount})
+                                                                    this.setState({supplier: income.supplier.supplier})
+                                                                    this.setState({date: income.date})
                                                                     this.updateForm()
                                                                 }}
-                                                                    id="addGoods" className="update_button"
+                                                                   id="addGoods" className="update_button"
                                                                 >Редагувати
                                                                 </a>
                                                                 {/*<button className="update_button"*/}
@@ -435,29 +493,32 @@ class IncomeComponent extends Component {
                                         </table>
 
                                     </div>
-                                    <ReactLoading className="react_loading"   hidden={!this.isEmpty()} type={"cylon"} color={"white"} height={500} width={500} />
+                                    <ReactLoading className="react_loading" hidden={!this.isEmpty()} type={"cylon"}
+                                                  color={"white"} height={500} width={500}/>
                                 </div>
                             </div>
                         </div>
                     </section>
                     <section>
-                        <datalist id="brands">{this.state.brands.map(brand => <option key={brand.id} value={brand.brand}/>)}</datalist>
-                        <datalist id="models">{this.state.models.map(model => <option key={model.id} value={model.model}/>)}</datalist>
-                        <datalist id="types">{this.state.types.map(type => <option key={type.id} value={type.type}/>)}</datalist>
-                        <datalist id="suppliers">{this.state.suppliers.map(supplier => <option key={supplier.id} value={supplier.supplier}/>)}</datalist>
+                        <datalist id="brands">{this.state.brands.map(brand => <option key={brand.id}
+                                                                                      value={brand.brand}/>)}</datalist>
+                        <datalist id="models">{this.state.models.map(model => <option key={model.id}
+                                                                                      value={model.model}/>)}</datalist>
+                        <datalist id="types">{this.state.types.map(type => <option key={type.id}
+                                                                                   value={type.type}/>)}</datalist>
+                        <datalist id="suppliers">{this.state.suppliers.map(supplier => <option key={supplier.id}
+                                                                                               value={supplier.supplier}/>)}</datalist>
                     </section>
-
 
 
                     <section id='popup' className="popup">
                         <div className="popup_body">
                             <div className="popup_content">
-                                <a onClick={()=>this.closeForm()} className="popup_close"><i
+                                {this.getTitle()}
+                                <a onClick={() => this.closeForm()} className="popup_close"><i
                                     className="fas fa-times" aria-hidden="true"/></a>
                                 <form className="popup-form">
-                                    <div className="popup-box">
-                                        {this.getTitle()}
-                                    </div>
+
                                     <div className="popup-box">
                                         <label>Тип </label>
                                         <input placeholder="tv/phone/..." name="type" value={this.state.type}
@@ -475,28 +536,32 @@ class IncomeComponent extends Component {
                                     </div>
                                     <div className="popup-box">
                                         <label>Ціна </label>
-                                        <input placeholder="UAH" name="price" value={this.state.price}
+                                        <input type="number" placeholder="UAH" name="price" value={this.state.price}
                                                onChange={this.changePriceHandler}/>
                                     </div>
+
                                     <div className="popup-box">
                                         <label>Кількість </label>
-                                        <input placeholder="1+" name="amount" value={this.state.amount}
+                                        <input type="number" placeholder="1+" name="amount" value={this.state.amount}
                                                onChange={this.changeAmountHandler}/>
                                     </div>
                                     <div className="popup-box">
-                                        <label>Звідки</label>
+                                        <label>Постачальник</label>
                                         <input placeholder="poland/solo/..." name="supplier" value={this.state.supplier}
                                                onChange={this.changeSupplierHandler} list="suppliers"/>
                                     </div>
 
                                     <div className="popup-box">
-                                        <label>Дата </label>
-
+                                        <label>Дата</label>
                                         {this.getDateInput()}
                                     </div>
-                                    <div className="popup-box">
+
+                                    <FormErrors formErrors={this.state.formErrors}/>
+
+                                    <div className="popup-box popup-box-butt ">
                                         {this.getButton()}
-                                        <button type="button" onClick={() => this.closeForm()} className="cancel_button" >Скасувати
+                                        <button type="button" onClick={() => this.closeForm()}
+                                                className="search_but__popup close-popup">Скасувати
                                         </button>
                                     </div>
                                 </form>

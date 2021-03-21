@@ -319,14 +319,15 @@ class StorageComponent extends Component {
                 </section>
                 <section id='popup' className="popup">
                     <div className="popup_body">
-                        <div className="popup_content">
+                        <div className="popup_content ">
+                            <h2 className="title_form" >Продати</h2>
                             <a onClick={() => this.closeForm()} className="popup_close"><i
                                 className="fas fa-times" aria-hidden="true"/></a>
 
                             <form className="popup-form">
-                                <div className="popup-box">
-                                    <h3 className="title">Продати</h3>
-                                </div>
+
+
+
                                 <div className="popup-box">
                                     <label>Тип </label>
                                     <input placeholder="tv/phone/..." name="type" value={this.state.type}
@@ -373,7 +374,7 @@ class StorageComponent extends Component {
                                     <input placeholder="xxxx-xx-xx" name="date" value={this.state.date}
                                            onChange={this.changeDateHandler}/>
                                 </div>
-                                <div className="popup-box">
+                                <div className="popup-box  popup-box-butt" >
                                     <button type="button" className="add_button" disabled={!this.state.formValid}
                                             onClick={() => {
                                                 this.sellStorage();

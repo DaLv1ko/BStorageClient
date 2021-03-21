@@ -1,8 +1,15 @@
 label{
-    min-width: 80px;
+    display: block;
+    text-align: right;
+    margin-right: 10px;
 }
 .popup input{
+    display: block;
     border-radius: 5px;
+}
+
+.popup h2{
+    text-align: center;
 }
 
 .popup{
@@ -17,6 +24,7 @@ label{
     overflow-y: auto;
     overflow-x: hidden;
     transition: 0.4s all ease 0s;
+    z-index: 15;
 }
 
 .header_close{
@@ -71,7 +79,7 @@ label{
 .popup_content{
     background-color: #40babd  ;
     color: white;
-    max-width: 450px;
+    max-width: 550px;
     border-radius: 5px;
     padding: 30px;
     position: relative;
@@ -96,20 +104,108 @@ label{
     color: red;
 }
 
-.popup-form{
+.popup-form {
+    max-width: 75%;
+    margin: 0 auto;
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
-    align-items: center;
-
 }
 
 .popup-box{
-    text-align: center;
     margin: 10px auto;
+    min-width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
 }
-.title{
-    font-size: 28px;
+.title_form{
+    font-size: 26px;
     font-weight: 700;
     text-transform: uppercase;
+}
+
+
+.popup-box-butt{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+}
+
+.search_but__popup{
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    color:white;
+    background: #298d90;
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 5px 35px;
+    transition: .24s linear;
+}
+
+.search_but__popup:active,
+.search_but__popup:focus,
+.search_but__popup{
+    outline: none;
+    border: none;
+    margin: 20px;
+    padding: 5px 40px;
+    border-radius:4;
+}
+
+.search_but__popup:hover {
+    background: rgb(8, 124, 139);
+}
+
+@media  (max-width: 992px  ) {
+
+    label{
+        text-align: center;
+        margin: 3px;
+    }
+
+    input{
+        margin: 0 auto;
+        width: 75%;
+    }
+
+    .popup_body{
+        width: 100%;
+    }
+
+    .popup-form{
+        max-width: 100%;
+        margin: 0 !important;
+    }
+
+    .input{
+        max-width: 66%;
+    }
+
+    .popup_content{
+        max-width: 99%;
+        padding: 5px;
+    }
+
+    .popup-box{
+        max-width: 100%;
+        display: block;
+        text-align: center;
+        margin: 5px auto;
+    }
+
+    .popup-box.popup-box-butt{
+        display: inline-block;
+
+    }
+
+    .search_but__popup{
+        min-width: 100px;
+        margin: 0;
+        padding: 5px 20px;
+        border-radius: 4px;
+    }
+
 }

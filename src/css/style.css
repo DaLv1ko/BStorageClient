@@ -316,6 +316,10 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
     text-decoration: none;
 }
 
+.errors_div{
+    min-width: 100%;
+}
+
 @media  (max-width: 992px  ) {
 
     .current_page{
