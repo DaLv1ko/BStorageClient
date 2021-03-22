@@ -135,6 +135,7 @@ class SaleComponent extends Component {
                                                 <th>КІЛЬКІСТЬ</th>
                                                 <th>ПОКУПЕЦЬ</th>
                                                 <th>БОРГ</th>
+                                                <th>ДАТА</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -150,6 +151,7 @@ class SaleComponent extends Component {
                                                             <td>{sale.amount}</td>
                                                             <td>{sale.customer}</td>
                                                             <td>{sale.debt}</td>
+                                                            <td>{sale.date}</td>
 
                                                         </tr>
                                                 )
