@@ -110,7 +110,7 @@ class IncomeComponent extends Component {
 
     validateForm() {
         this.setState({
-            formValid: this.state.amountValid && this.state.amountValid && this.state.dateValid
+            formValid: this.state.amountValid && this.state.priceValid && this.state.dateValid
         })
     };
 
@@ -178,6 +178,7 @@ class IncomeComponent extends Component {
 
 
     addOrUpdateIncome() {
+        console.log("sososo")
         console.log(this.state.addOrUpdate);
         let income = {
             type: this.state.type,
@@ -282,9 +283,7 @@ class IncomeComponent extends Component {
     }
     changeDateHandler = (event) => {
         this.setState({date: event.target.value})
-        this.setState({addDate: false})
         this.handleUserInput(event);
-
     }
 
     handleUserInput = (e) => {
@@ -298,12 +297,14 @@ class IncomeComponent extends Component {
 
     getButton() {
         if (this.state.addOrUpdate === '_add') {
+            console.log("123")
             return <button disabled={!this.state.formValid} type="button" className="search_but__popup" onClick={() => {
                 this.addOrUpdateIncome();
             }
             }>Додати
             </button>
         } else {
+            console.log("ne ponyal")
             return <button disabled={!this.state.formValid} type="button" className="search_but__popup" onClick={() => {
 
                 this.addOrUpdateIncome();
@@ -553,7 +554,8 @@ class IncomeComponent extends Component {
 
                                     <div className="popup-box">
                                         <label>Дата</label>
-                                        {this.getDateInput()}
+                                        <input placeholder="дд.мм.рррр" name="date" value={this.state.date}
+                                               onChange={this.changeDateHandler}/>
                                     </div>
 
                                     <FormErrors formErrors={this.state.formErrors}/>
