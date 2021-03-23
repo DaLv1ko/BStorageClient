@@ -39,7 +39,7 @@ class IncomeComponent extends Component {
                 date: '',
             },
             formValid: false,
-            dateValid: false,
+            dateValid: true,
             amountValid: false,
             priceValid: false
         }
@@ -340,6 +340,7 @@ class IncomeComponent extends Component {
 
     addForm() {
         this.setState({addOrUpdate: '_add'});
+        this.state.date = this.state.currentDate;
         let popup = document.getElementById('popup');
         popup.classList.add('open');
     }
