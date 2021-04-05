@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../css/storage.css';
 import StorageService from "../services/StorageService";
-import {FormErrors} from "./FormErrors";
+import {FormErrors} from "../js/FormErrors";
 import ReactLoading from 'react-loading'
 
 

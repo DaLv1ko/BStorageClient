@@ -320,6 +320,20 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
     min-width: 100%;
 }
 
+.search_box_frame{
+    display: inline;
+    position: relative;
+}
+
+
+.search_box_frame .close{
+    position:absolute;
+    width: 20px;
+    top: 6px;
+    right:5px;
+    color: rgb(8, 124, 139);
+}
+
 @media  (max-width: 992px  ) {
 
     .current_page{
@@ -448,7 +462,10 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
         display: block;
     }
 
+
+
     .search_form__inner{
+        position: relative;
         width: 100%;
         margin: 0 auto;
         border-radius: 0;
@@ -497,6 +514,10 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
 
     .menu_inner.menu_inner__active li:last-child{
         display: none;
+    }
+
+    .search_box_frame .close{
+        top: -1px;
     }
 
 
