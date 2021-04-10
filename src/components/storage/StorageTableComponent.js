@@ -1,12 +1,11 @@
 import React, {Component} from "react";
-import ReactLoading from "react-loading";
 import StorageTableItemComponent from "./StorageTableItemComponent";
 
 
 export default class StorageTableComponent extends Component {
 
     render() {
-        const {goods, loading, sellItem, sort} = this.props;
+        const {goods, sellItem, sort} = this.props;
         let count = 1;
         const elements = goods.map((storage) => {
             return (
@@ -19,8 +18,8 @@ export default class StorageTableComponent extends Component {
                 </tr>
             )
         })
-        const content = loading ? <ReactLoading type={"cylon"} height={500} width={500}/> :
-            <MainContent elements={elements} sort={sort}/>
+
+
 
         return (
             <section className="frame">
@@ -28,7 +27,7 @@ export default class StorageTableComponent extends Component {
                     <div className="row">
                         <div className="col-12 ">
                             <div className="frame__box">
-                                {content}
+                                <MainContent elements={elements} sort={sort}/>
                             </div>
 
 

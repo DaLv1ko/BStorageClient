@@ -72,7 +72,6 @@ table tr td.td2:last-child {
 }
 
 .menu_inner a{
-    color: black;
     text-decoration: none;
     color:white;
     display: block;
@@ -486,8 +485,9 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
 
 
 
-    .menu_inner li a{
+    .menu_inner li{
         margin-top: 18px;
+        display: block;
         display: block;
         width: 100%;
         height: 100%;

@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import './index.css';
-import App from './js/App';
+import App from './components/App';
 import registerServiceWorker from "react-service-worker";
-import reportWebVitals from './js/reportWebVitals';
+
 
 
 ReactDOM.render(
@@ -12,5 +12,4 @@ ReactDOM.render(
     document.getElementById('root'),
 );
 
-// registerServiceWorker.register()
 registerServiceWorker().register()

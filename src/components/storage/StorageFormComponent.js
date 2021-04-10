@@ -53,8 +53,7 @@ export default class StorageFormComponent extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log(prevState.item)
-        console.log(this.props.item)
+
         if ((prevState.item !== this.props.item)) {
             this.setState({
                 id: this.props.item.id,
@@ -148,11 +147,7 @@ export default class StorageFormComponent extends Component {
         let amountValid = this.state.amountValid;
         switch (fieldName) {
             case 'amount':
-                if (value <= this.state.maxAmount && value > 0) {
-                    amountValid = true
-                } else {
-                    amountValid = false;
-                }
+                amountValid = value <= this.state.maxAmount && value > 0;
                 fieldValidationErrors.amount = amountValid ? '' : ' некоректна';
                 break;
 
@@ -197,8 +192,8 @@ export default class StorageFormComponent extends Component {
                 <div className="popup_body">
                     <div className="popup_content ">
                         <h2 className="title_form">Продати</h2>
-                        <a onClick={() => this.closeForm()} className="popup_close"><i
-                            className="fas fa-times" aria-hidden="true"/></a>
+                       <i onClick={this.closeForm}
+                            className="fas fa-times popup_close" aria-hidden="true"/>
                         <form onSubmit={this.onSubmit} className="popup-form">
                             <div className="popup-box">
                                 <label>Тип </label>
@@ -243,7 +238,7 @@ export default class StorageFormComponent extends Component {
                             </div>
                             <div className="popup-box">
                                 <label>Дата </label>
-                                <input placeholder="xxxx-xx-xx" name="date" value={this.state.date}
+                                <input placeholder="дд.мм.рррр" name="date" value={this.state.date}
                                        onChange={this.changeDateHandler}/>
                             </div>
                             <div className="popup-box  popup-box-butt">

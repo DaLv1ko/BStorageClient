@@ -3,7 +3,6 @@ import '../../css/income.css';
 import IncomeTableComponent from "./IncomeTableComponent"
 import IncomeFormComponent from "./IncomeFormComponent"
 import HeaderComponent from "../HeaderComponent";
-import IncomePanelComponents from "./IncomePanelComponents";
 import SearchComponent from "../SearchComponent";
 
 class IncomePage extends Component {
@@ -23,7 +22,6 @@ class IncomePage extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps !== this.props && prevState !== this.state) {
-            console.log("updating")
         }
     }
 

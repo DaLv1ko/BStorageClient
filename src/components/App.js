@@ -6,18 +6,19 @@ import '../css/style.css'
 import React, {Component} from "react";
 
 
+
 import AuthService from "../services/AuthService";
-import Login from "../components/LoginComponent";
-import Register from "../components/RegisterComponent";
-import authHeader from "./auth-header";
-import MainPageComponent from "../components/MainPageComponent";
-import IncomePage from "../components/income/IncomePage";
-import StoragePage from "../components/storage/StoragePage";
-import SalePage from "../components/sale/SalePage";
+import Login from "./LoginComponent";
+import Register from "./RegisterComponent";
+import authHeader from "../js/auth-header";
+import MainPageComponent from "./MainPageComponent";
+import IncomePage from "./income/IncomePage";
+import StoragePage from "./storage/StoragePage";
+import SalePage from "./sale/SalePage";
 import IncomeService from "../services/IncomeService";
 import StorageService from "../services/StorageService";
 import SaleService from "../services/SaleService";
-import ScrollToTop from "./ScrollToTop";
+import ScrollToTop from "../js/ScrollToTop";
 
 
 class App extends Component {
@@ -160,7 +161,6 @@ class App extends Component {
                     if (item.date.toLowerCase().includes(tags[i])) {
                         item.rar++
                     }
-                    console.log(item)
                     if (item.customer.toLowerCase().includes(tags[i])) {
                         item.rar++
                     }
@@ -334,7 +334,6 @@ class App extends Component {
             else return d - c
         }
         return function compare(a, b) {
-            console.log(prop)
             if (sorting) {
                 if (a[prop][prop] < b[prop][prop]) {
                     return -1;
@@ -393,8 +392,6 @@ class App extends Component {
 
     sellStorage(sell, id) {
         StorageService.sellStorage(id, sell).then((res => {
-            console.log("res  ")
-            console.log(sell)
             this.state.storageData.forEach(
                 storage => {
                     if (storage.id === id) {
@@ -416,7 +413,7 @@ class App extends Component {
     }
 
     render() {
-        console.log("app")
+        console.log("App render...")
         return (
             <Router>
                 <ScrollToTop>
@@ -484,4 +481,6 @@ class App extends Component {
 }
 
 export default App;
+
+
 

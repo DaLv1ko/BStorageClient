@@ -152,7 +152,7 @@ label{
     border: none;
     margin: 20px;
     padding: 5px 40px;
-    border-radius:4;
+    border-radius:4px;
 }
 
 .search_but__popup:hover {

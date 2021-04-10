@@ -6,16 +6,9 @@ import AuthService from "../services/AuthService";
 
 import '../css/login.css'
 import {withRouter} from "react-router";
+import {Link} from 'react-router-dom'
 
-const required = value => {
-    if (!value) {
-        return (
-            <div className="alert alert-danger" role="alert">
-                This field is required!
-            </div>
-        );
-    }
-};
+
  class Login extends Component {
     constructor(props) {
         super(props);
@@ -29,10 +22,6 @@ const required = value => {
             loading: false,
             message: ""
         };
-    }
-
-    componentDidMount() {
-        console.log("login page created")
     }
 
     onChangeUsername(e) {
@@ -94,8 +83,8 @@ const required = value => {
                         <div className="container">
                             <div className="row">
                                 <div className="col-12 search_box">
-                                    <a href="/login" className="search_but dandruff"
-                                       onClick={this.logOut}>ВИЙТИ З АККАУНТУ</a>
+                                    <Link to="/login" className="search_but dandruff"
+                                       onClick={this.logOut}>ВИЙТИ З АККАУНТУ</Link>
                                 </div>
                             </div>
                         </div>

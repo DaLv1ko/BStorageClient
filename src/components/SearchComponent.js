@@ -53,10 +53,10 @@ export default class SearchComponent extends Component {
                     {this.props.addButton ?
                         <div className="row">
                             <div className="col-12 search_box">
-                                <a id="addGoods" className="search_but popup_link"
+                                <button id="addGoods" className="search_but popup_link"
                                    onClick={() => {
                                        this.addForm();
-                                   }}>Додати товар</a>
+                                   }}>Додати товар</button>
                             </div>
                         </div>
                         : null}

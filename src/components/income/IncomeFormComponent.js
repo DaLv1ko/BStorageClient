@@ -56,20 +56,12 @@ export default class IncomeFormComponent extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("hui")
-        console.log(this.props.itemId)
-        console.log(prevState.itemId)
         if ((this.props.itemId !== prevState.itemId)) {
-            console.log("updating")
             this.getIncomeItem();
-
         }
     }
 
     componentDidMount() {
-
-            console.log("incform")
-
         this.getIncomeItem();
     }
 
@@ -237,10 +229,8 @@ export default class IncomeFormComponent extends Component {
             return <button disabled={!this.state.formValid} type="submit" className="search_but__popup">Додати
             </button>
         } else {
-
                 this.state.amountValid= true;
                 this.state.priceValid= true;
-
             return <button disabled={!this.state.formValid} type="submit" className="search_but__popup">Редагувати
             </button>
         }
@@ -270,8 +260,8 @@ export default class IncomeFormComponent extends Component {
                 <div className="popup_body" >
                     <div className="popup_content">
                         {this.getTitle(this.state.id)}
-                        <a onClick={() => this.closeForm()} className="popup_close"><i
-                            className="fas fa-times" aria-hidden="true"/></a>
+                      <i onClick={this.closeForm}
+                            className="fas fa-times popup_close" aria-hidden="true"/>
                         <form onSubmit={this.onSubmit}
                               className="popup-form">
 

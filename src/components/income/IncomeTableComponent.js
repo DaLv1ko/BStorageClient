@@ -1,20 +1,14 @@
 import React, {Component} from "react";
-import ReactLoading from "react-loading";
 import IncomeTableItemComponent from "./IncomeTableItemComponent";
 
 
 export default class IncomeTableComponent extends Component {
 
-    componentDidMount() {
-        console.log("imctable")
-    }
-
     render() {
-        const {income, setItemId, loading, sort} = this.props;
+        const {income, setItemId, sort} = this.props;
         let elements;
         if(income!==undefined && income!==''){
             let count = 1;
-            console.log(income)
             elements = income.map((income) => {
                 return (
                     <tr key={income.id} className="table_body">
@@ -27,18 +21,14 @@ export default class IncomeTableComponent extends Component {
                 )
             })}
 
-        const content = loading ? <ReactLoading type={"cylon"} height={500} width={500}/> :
-            <MainContent elements={elements}  sort={sort}/>
         return (
             <section className="frame">
                 <div className="container">
                     <div className="row">
                         <div className="col-12 ">
                             <div className="frame__box">
-                                {content}
+                                <MainContent elements={elements}  sort={sort}/>
                             </div>
-
-
                         </div>
                     </div>
                 </div>

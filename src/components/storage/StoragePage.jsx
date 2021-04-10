@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import StorageTableComponent from "./StorageTableComponent";
-import StorageService from "../../services/StorageService";
 import StorageFormComponent from "./StorageFormComponent";
 import SearchComponent from "../SearchComponent";
 import HeaderComponent from "../HeaderComponent";
