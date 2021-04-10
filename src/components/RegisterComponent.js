@@ -63,6 +63,10 @@ export default class Register extends Component {
         };
     }
 
+    componentDidMount() {
+        console.log("reg page")
+    }
+
     onChangeUsername(e) {
         this.setState({
             username: e.target.value

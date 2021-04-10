@@ -12,12 +12,6 @@ class MainPageComponent extends Component {
     }
 
     componentDidMount() {
-
-        IncomeService.getBrands().then((res) => {
-            },error=>{
-                this.props.history.push('/login')
-            }
-        );
     }
 
     logOut() {
@@ -34,7 +28,7 @@ class MainPageComponent extends Component {
     }
 
     goToSale() {
-        this.props.history.push(`/sell`);
+        this.props.history.push(`/sale`);
     }
 
     openBurger(){

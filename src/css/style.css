@@ -35,6 +35,16 @@ table tr td.td2:last-child {
 .header{
     text-align: center;
     overflow:hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+.search{
+    padding-top: 100px;
+
 }
 
 .title{
@@ -186,6 +196,10 @@ td, th{
     padding: 10px 25px;
     border: 2px solid rgb(8, 124, 139);
     min-width: 160px;
+}
+
+.price_th{
+    min-width: 120px;
 }
 
  .table_head{
@@ -355,6 +369,7 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
         z-index: 10;
     }
 
+
     .header__burger{
         display: block;
         position: relative;
@@ -405,7 +420,7 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
 
     .header__menu{
         background-color: #298d90;
-        position: absolute;
+        position: fixed;
         top: -100%;
         display: flex;
         justify-content: center;

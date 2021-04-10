@@ -2,11 +2,15 @@ import React, {Component} from "react";
 
 export default class IncomeTableItemComponent extends Component {
 
+    componentDidMount() {
+        console.log("imctableitem")
+    }
+
     render() {
             const {setItemId} = this.props
-            const {id, type, brand,model,price,amount,supplier,date} =this.props;
+            const {count, type, brand,model,price,amount,supplier,date} =this.props;
         return (<>
-            <td>{id}</td>
+            <td>{count}</td>
             <td>{type.type}</td>
             <td>{brand.brand}</td>
             <td>{model.model}</td>

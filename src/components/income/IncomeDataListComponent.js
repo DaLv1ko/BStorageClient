@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import IncomeService from "../../../services/IncomeService";
+import IncomeService from "../../services/IncomeService";
 
 export default class IncomeDataListComponent extends Component{
 
@@ -11,6 +11,7 @@ export default class IncomeDataListComponent extends Component{
     }
 
     componentDidMount() {
+        console.log("wtf")
         this.getBrands();
         this.getModels();
         this.getSuppliers();

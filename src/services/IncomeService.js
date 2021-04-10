@@ -7,7 +7,7 @@ const API_URL_INCOME = "https://bstorage-server.herokuapp.com/api/income";
 
 class IncomeService {
 
-   async getIncome() {
+    async getIncome() {
          return await axios.get(API_URL_INCOME, {headers: authHeader()});
     }
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {FormErrors} from "../../../js/FormErrors";
-import IncomeDataListComponent from "../IncomeDataListComponent/IncomeDataListComponent";
-import IncomeService from "../../../services/IncomeService";
+import {FormErrors} from "../../js/FormErrors";
+import IncomeDataListComponent from "./IncomeDataListComponent";
+import IncomeService from "../../services/IncomeService";
 
 export default class IncomeFormComponent extends Component {
 
@@ -24,7 +24,7 @@ export default class IncomeFormComponent extends Component {
             price: '',
             amount: '',
             supplier: '',
-            itemId: '',
+            itemId: this.props.itemId,
             date: date,
             currentDate: date,
             formErrors: {
@@ -55,14 +55,21 @@ export default class IncomeFormComponent extends Component {
 
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.props.itemId !== prevProps.itemId) {
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("hui")
+        console.log(this.props.itemId)
+        console.log(prevState.itemId)
+        if ((this.props.itemId !== prevState.itemId)) {
+            console.log("updating")
             this.getIncomeItem();
 
         }
     }
 
     componentDidMount() {
+
+            console.log("incform")
+
         this.getIncomeItem();
     }
 
@@ -80,11 +87,10 @@ export default class IncomeFormComponent extends Component {
                         amount: res.data.amount,
                         date: res.data.date,
                         supplier: res.data.supplier.supplier,
+                        itemId:itemId
                     })
                 })
-
         }
-        this.setState({doing: 'edit'})
     }
 
 
@@ -114,32 +120,40 @@ export default class IncomeFormComponent extends Component {
     }
 
     closeForm() {
+        this.props.resetItemId();
         let popup = document.getElementById('popup');
         popup.classList.remove('open');
         this.cancel();
     }
 
     cancel() {
+
         this.setState({
+            currentState: 1,
+            doing: 'add',
             id: '',
             type: '',
             brand: '',
             model: '',
             price: '',
             amount: '',
-            date: this.state.currentDate,
             supplier: '',
-            addDate: true,
             itemId: '',
-            formValid: false,
-            dateValid: true,
-            amountValid: false,
-            priceValid: false,
+
             formErrors: {
                 amount: '',
                 price: '',
                 date: '',
-            }
+            },
+            formValid: false,
+            dateValid: true,
+            amountValid: false,
+            priceValid: false,
+
+            date: this.state.currentDate,
+
+            addDate: true,
+
         })
     }
 
@@ -253,7 +267,7 @@ export default class IncomeFormComponent extends Component {
 
         return (
             <section id='popup' className="popup">
-                <div className="popup_body">
+                <div className="popup_body" >
                     <div className="popup_content">
                         {this.getTitle(this.state.id)}
                         <a onClick={() => this.closeForm()} className="popup_close"><i
