@@ -485,9 +485,8 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
 
 
 
-    .menu_inner li{
+    .menu_inner li a{
         margin-top: 18px;
-        display: block;
         display: block;
         width: 100%;
         height: 100%;

@@ -58,6 +58,7 @@ export default class HeaderComponent extends Component {
         }
 
         const currentPage = (page) => {
+            console.log(page)
             let currentPage = ''
             if (page === 'income') currentPage = 'Прихід'
             if (page === 'storage') currentPage = 'Склад'
