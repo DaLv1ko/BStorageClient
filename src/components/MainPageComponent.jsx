@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import IncomeService from "../services/IncomeService";
 import AuthService from "../services/AuthService";
+import HeaderComponent from "./HeaderComponent";
 
 class MainPageComponent extends Component {
 
@@ -19,61 +20,13 @@ class MainPageComponent extends Component {
         this.props.history.push('/login');
     }
 
-    goToIncome() {
-        this.props.history.push(`/income`);
-    }
-
-    goToStorage() {
-        this.props.history.push(`/storage`);
-    }
-
-    goToSale() {
-        this.props.history.push(`/sale`);
-    }
-
-    openBurger() {
-        const menu = document.getElementById('header__menu');
-        const headerBurger = document.getElementById('header__burger');
-        menu.classList.toggle('show');
-        headerBurger.classList.toggle('crist');
-    }
     render() {
         return (
 
             <div>
-                <header className="header lock-padding">
-                    <div className="container-fluid p-0">
-                        <div className="header_wrapburg">
-                            <span className="title">BStorage</span>
-                            <div id="header__burger" className="header__burger" onClick={() => {
-                                this.openBurger()
-                            }}>
-                                <span />
-                            </div>
-                        </div>
-                        <div id="header__menu" className="row header__menu">
-                            <div className="col-lg-4 menu">
-                                <ul className="menu_inner"  onClick={() => this.goToIncome()}>
-                                    <li>
-                                        <a>Прихід</a></li>
-                                </ul>
-                            </div>
-                            <div className="col-lg-4  menu">
-                                <ul className="menu_inner"  onClick={() => this.goToStorage()}>
-                                    <li><a>Склад</a></li>
-                                </ul>
-                            </div>
-                            <div className="col-lg-4  menu">
-                                <ul className="menu_inner" onClick={() => this.goToSale()}>
-                                    <li><a>Продаж</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </header>
-
-
-
+                <HeaderComponent
+                    page={'main'}
+                />
                 <section className="search">
                     <div className="container">
                         <div className="row">

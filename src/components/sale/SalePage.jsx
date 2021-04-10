@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import SaleHeaderComponent from "./SaleHeaderComponent";
 import SearchComponent from "../SearchComponent";
 import SaleTableComponent from "./SaleTableComponent";
+import HeaderComponent from "../HeaderComponent";
 
 class SalePage extends Component {
 
@@ -11,8 +11,9 @@ class SalePage extends Component {
 
         return (
             <>
-                <SaleHeaderComponent
-                    clearSearch={() => this.props.clearSearch('sale')}
+                <HeaderComponent
+                    page={'sale'}
+                    clearSearch={() =>this.props.clearSearch('income')}
                 />
                 <SearchComponent
                     addButton={false}

@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import StorageTableComponent from "./StorageTableComponent";
 import StorageService from "../../services/StorageService";
-import StorageHeaderComponent from "./StorageHeaderComponent";
 import StorageFormComponent from "./StorageFormComponent";
-import StoragePanelComponent from "./StoragePanelComponent";
 import SearchComponent from "../SearchComponent";
+import HeaderComponent from "../HeaderComponent";
 
 class StoragePage extends Component {
 
@@ -28,8 +27,9 @@ class StoragePage extends Component {
         if (this.props.storageData === '') return null
         return (
             <>
-                <StorageHeaderComponent
-                    clearSearch={ () => this.props.clearSearch('storage')}
+                <HeaderComponent
+                    page={'storage'}
+                    clearSearch={() =>this.props.clearSearch('income')}
                 />
                 <SearchComponent
                     addButton={false}

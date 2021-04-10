@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import '../../css/income.css';
 import IncomeTableComponent from "./IncomeTableComponent"
 import IncomeFormComponent from "./IncomeFormComponent"
-import IncomeHeaderComponent from "./IncomeHeaderComponent";
+import HeaderComponent from "../HeaderComponent";
 import IncomePanelComponents from "./IncomePanelComponents";
 import SearchComponent from "../SearchComponent";
 
@@ -54,7 +54,8 @@ class IncomePage extends Component {
 
         return (
             <>
-                <IncomeHeaderComponent
+                <HeaderComponent
+                    page={'income'}
                     clearSearch={() =>this.props.clearSearch('income')}
                 />
                 <SearchComponent
