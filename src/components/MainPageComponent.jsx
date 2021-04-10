@@ -31,11 +31,12 @@ class MainPageComponent extends Component {
         this.props.history.push(`/sale`);
     }
 
-    openBurger(){
+    openBurger() {
         const menu = document.getElementById('header__menu');
+        const headerBurger = document.getElementById('header__burger');
         menu.classList.toggle('show');
+        headerBurger.classList.toggle('crist');
     }
-
     render() {
         return (
 
@@ -44,10 +45,10 @@ class MainPageComponent extends Component {
                     <div className="container-fluid p-0">
                         <div className="header_wrapburg">
                             <span className="title">BStorage</span>
-                            <div className="header__burger">
-                                <span id="trigger" onClick={() => {
-                                    this.openBurger()
-                                }}/>
+                            <div id="header__burger" className="header__burger" onClick={() => {
+                                this.openBurger()
+                            }}>
+                                <span />
                             </div>
                         </div>
                         <div id="header__menu" className="row header__menu">

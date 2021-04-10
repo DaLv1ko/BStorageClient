@@ -61,7 +61,7 @@ table tr td.td2:last-child {
     position: relative;
     list-style: none;
     text-align: center;
-    background-color: #298d90;
+    background-color: #206d6f;
     transition: .24s;
     padding: 0;
 
@@ -72,6 +72,7 @@ table tr td.td2:last-child {
 }
 
 .menu_inner a{
+    color: black;
     text-decoration: none;
     color:white;
     display: block;
@@ -323,6 +324,8 @@ td, th{
 
 .current_page_mobile{
     display: none;
+    color:#206d6f ;
+
 }
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
@@ -348,6 +351,10 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
     color: rgb(8, 124, 139);
 }
 
+.header__burger{
+    display: none;
+}
+
 @media  (max-width: 992px  ) {
 
     .current_page{
@@ -369,6 +376,9 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
         z-index: 10;
     }
 
+    .header{
+        position: fixed;
+    }
 
     .header__burger{
         display: block;
@@ -386,7 +396,7 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
         width:100%;
         height: 3px;
         left: 10px;
-
+        transition: all 0.24s ease 0s;
         top: 14px;
     }
 
@@ -397,6 +407,7 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
         width: 100%;
         height: 3px;
         left:10px;
+        transition: all 0.24s ease 0s;
         background-color: white;
     }
 
@@ -415,11 +426,11 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
         padding: 10px 0 13px 0;
         width: 100%;
         height: 100%;
-        background-color: #298d90;
+        background-color: #206d6f;
     }
-
+    /*#145354*/
     .header__menu{
-        background-color: #298d90;
+        background-color: #206d6f;
         position: fixed;
         top: -100%;
         display: flex;
@@ -435,11 +446,25 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
         top:50px;
     }
 
-    .header__menu.show::after{
-        transform: rotate(45deg);
+    .header__burger.crist span{
+        width: 90%;
+        transform: scale(0);
     }
+
+    .header__burger.crist::after{
+        transform: rotate(45deg);
+        bottom: 13.5px;
+        width: 90%;
+    }
+
+    .header__burger.crist::before{
+        transform: rotate(-45deg);
+        top: 13.5px;
+        width: 90%;
+    }
+
     .menu_inner.menu_inner__active{
-        background-color: #298d90;
+        background-color: #206d6f;
     }
 
     .menu{
@@ -462,9 +487,15 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
 
 
     .menu_inner li a{
+        margin-top: 18px;
         display: block;
         width: 100%;
         height: 100%;
+    }
+
+    .menu_inner a{
+        margin-top: 12px;
+
     }
 
     .menu_inner:hover{

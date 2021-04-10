@@ -5,7 +5,9 @@ export default class StorageHeaderComponent extends Component {
 
     openBurger() {
         const menu = document.getElementById('header__menu');
+        const headerBurger = document.getElementById('header__burger');
         menu.classList.toggle('show');
+        headerBurger.classList.toggle('crist');
     }
 
     render(){
@@ -13,14 +15,13 @@ export default class StorageHeaderComponent extends Component {
 
         return(
             <header className="header lock-padding">
-
                 <div className="container-fluid p-0">
                     <div className="header_wrapburg">
                         <span className="title">СКЛАД</span>
-                        <div className="header__burger">
-                                <span id="trigger" onClick={() => {
-                                    this.openBurger()
-                                }}/>
+                        <div id="header__burger" className="header__burger" onClick={() => {
+                            this.openBurger()
+                        }}>
+                            <span />
                         </div>
                     </div>
                     <div id="header__menu" className="row header__menu">
