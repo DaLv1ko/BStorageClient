@@ -8,13 +8,13 @@ class SalePage extends Component {
 
     render() {
         if (this.props.saleData === '') return <Spinner/>
-        const {onSearch, saleData, sort} = this.props;
 
+        const {onSearch, saleData, sort, clearSearch} = this.props;
         return (
             <>
                 <HeaderComponent
                     page={'sale'}
-                    clearSearch={() =>this.props.clearSearch('income')}
+                    clearSearch={() =>clearSearch('income')}
                 />
                 <SearchComponent
                     addButton={false}

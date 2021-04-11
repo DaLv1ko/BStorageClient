@@ -254,12 +254,12 @@ export default class IncomeFormComponent extends Component {
 
 
     render() {
-
+        const {type, brand, model, id, price, amount, supplier, date, formErrors} =this.state;
         return (
             <section id='popup' className="popup">
                 <div className="popup_body" >
                     <div className="popup_content">
-                        {this.getTitle(this.state.id)}
+                        {this.getTitle(id)}
                       <i onClick={this.closeForm}
                             className="fas fa-times popup_close" aria-hidden="true"/>
                         <form onSubmit={this.onSubmit}
@@ -267,46 +267,46 @@ export default class IncomeFormComponent extends Component {
 
                             <div className="popup-box">
                                 <label>Тип </label>
-                                <input placeholder="tv/phone/..." name="type" value={this.state.type}
+                                <input placeholder="tv/phone/..." name="type" value={type}
                                        onChange={this.changeTypeHandler} list="types"/>
                             </div>
                             <div className="popup-box">
                                 <label>Бренд </label>
-                                <input placeholder="samsung/lg/..." name="brand" value={this.state.brand}
+                                <input placeholder="samsung/lg/..." name="brand" value={brand}
                                        onChange={this.changeBrandHandler} list="brands"/>
                             </div>
                             <div className="popup-box">
                                 <label>Модель </label>
-                                <input placeholder="nu7120/kj312/..." name="model" value={this.state.model}
+                                <input placeholder="nu7120/kj312/..." name="model" value={model}
                                        onChange={this.changeModelHandler} list="models"/>
                             </div>
                             <div className="popup-box">
                                 <label>Ціна </label>
-                                <input type="number" placeholder="UAH" name="price" value={this.state.price}
+                                <input type="number" placeholder="UAH" name="price" value={price}
                                        onChange={this.changePriceHandler}/>
                             </div>
 
                             <div className="popup-box">
                                 <label>Кількість </label>
-                                <input type="number" placeholder="1+" name="amount" value={this.state.amount}
+                                <input type="number" placeholder="1+" name="amount" value={amount}
                                        onChange={this.changeAmountHandler}/>
                             </div>
                             <div className="popup-box">
                                 <label>Постачальник</label>
-                                <input placeholder="poland/solo/..." name="supplier" value={this.state.supplier}
+                                <input placeholder="poland/solo/..." name="supplier" value={supplier}
                                        onChange={this.changeSupplierHandler} list="suppliers"/>
                             </div>
 
                             <div className="popup-box">
                                 <label>Дата</label>
-                                <input placeholder="дд.мм.рррр" name="date" value={this.state.date}
+                                <input placeholder="дд.мм.рррр" name="date" value={date}
                                        onChange={this.changeDateHandler}/>
                             </div>
 
-                            <FormErrors formErrors={this.state.formErrors}/>
+                            <FormErrors formErrors={formErrors}/>
 
                             <div className="popup-box popup-box-butt ">
-                                {this.getButton(this.state.id)}
+                                {this.getButton(id)}
                                 <button type="button" onClick={() => this.closeForm()}
                                         className="search_but__popup close-popup">Скасувати
                                 </button>

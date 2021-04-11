@@ -31,8 +31,7 @@ export default class SearchComponent extends Component {
     }
 
     clear() {
-        this.setState({search: ''}
-        )
+        this.setState({search: ''})
         this.props.onSearch('', this.props.page)
     }
 
@@ -47,25 +46,26 @@ export default class SearchComponent extends Component {
     }
 
     render() {
+        const {addButton} = this.props
+        const {search, clear} = this.state
         return (
             <section className="search">
                 <div className="container">
-                    {this.props.addButton ?
+                    {addButton ?
                         <div className="row">
                             <div className="col-12 search_box">
                                 <button id="addGoods" className="search_but popup_link"
-                                   onClick={() => {
-                                       this.addForm();
-                                   }}>Додати товар</button>
+                                        onClick={this.addForm}>Додати товар
+                                </button>
                             </div>
                         </div>
                         : null}
                     <div className="row">
                         <form onSubmit={this.onSubmit} className="col-12 search_box">
                             <div className="search_box_frame">
-                                <input id="search" value={this.state.search} onChange={this.changeFilterHandle}
+                                <input id="search" value={search} onChange={this.changeFilterHandle}
                                        type="text" name='model' placeholder='Пошук...' className='search_form__inner'/>
-                                <span hidden={this.state.clear} onClick={this.clear} className="close"><i
+                                <span hidden={clear} onClick={this.clear} className="close"><i
                                     className="fas fa-times"/></span>
                             </div>
                             <button

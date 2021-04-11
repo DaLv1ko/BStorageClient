@@ -25,27 +25,28 @@ class StoragePage extends Component {
 
     render() {
         if (this.props.storageData === '')
-        return <Spinner/>
+            return <Spinner/>
 
-
+        const {clearSearch, onSearch, sort, storageData, sellStorage} = this.props;
+        const {item} = this.state;
         return (
             <>
 
                 <HeaderComponent
                     page={'storage'}
-                    clearSearch={() => this.props.clearSearch('income')}
+                    clearSearch={() => clearSearch('income')}
                 />
                 <SearchComponent
                     addButton={false}
-                    onSearch={this.props.onSearch}
+                    onSearch={onSearch}
                     page={'storage'}
                 />
                 <StorageTableComponent
-                    sort={this.props.sort}
+                    sort={sort}
                     sellItem={this.sellItem}
-                    goods={this.props.storageData}
+                    goods={storageData}
                 />
-                <StorageFormComponent sellStorage={this.props.sellStorage} item={this.state.item}/>
+                <StorageFormComponent sellStorage={sellStorage} item={item}/>
             </>
         );
     }

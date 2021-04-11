@@ -40,7 +40,9 @@ class IncomePage extends Component {
 
     openForm() {
         let popup = document.getElementById('popup');
+        let body = document.querySelector("body");
         popup.classList.add('open');
+        body.style.overflowY="hidden";
     }
 
     resetItemId() {

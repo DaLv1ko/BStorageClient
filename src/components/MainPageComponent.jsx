@@ -9,7 +9,7 @@ class MainPageComponent extends Component {
         super(props)
 
         this.state = {}
-
+        this.logOut = this.logOut.bind(this)
     }
 
     componentDidMount() {
@@ -17,22 +17,20 @@ class MainPageComponent extends Component {
 
     logOut() {
         AuthService.logout();
-        this.props.history.push('/login');
+        this.props.logOut();
     }
 
     render() {
         return (
-
             <div>
-                <HeaderComponent
-                    page={'main'}
-                />
+                <HeaderComponent page={'main'}/>
                 <section className="search">
                     <div className="container">
                         <div className="row">
                             <div className="col-12 search_box">
-                                <Link to="/login" className="search_but dandruff"
-                                   onClick={this.logOut}>ВИЙТИ З АККАУНТУ</Link>
+                                <button className="search_but popup_link"
+                                        onClick={this.logOut}>Вийти з аккаунту
+                                </button>
                             </div>
                         </div>
                     </div>

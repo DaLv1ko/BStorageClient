@@ -1,14 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.css'
 
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch, useLocation} from "react-router-dom";
 import '../css/style.css'
 
 import React, {Component} from "react";
-
-
-
-import AuthService from "../services/AuthService";
-import Login from "./LoginComponent";
+import Login from "./LoginComponent/LoginComponent";
 import Register from "./RegisterComponent";
 import authHeader from "../js/auth-header";
 import MainPageComponent from "./MainPageComponent";
@@ -19,6 +15,7 @@ import IncomeService from "../services/IncomeService";
 import StorageService from "../services/StorageService";
 import SaleService from "../services/SaleService";
 import ScrollToTop from "../js/ScrollToTop";
+import {Redirect} from "react-router";
 
 
 class App extends Component {
@@ -29,13 +26,13 @@ class App extends Component {
         this.state = {
             sorting: true,
             currentUser: undefined,
-            incomeData: '',
+            incomeData: [],
             nonFilteredIncome: '',
             loadingIncome: true,
             storageData: [],
             nonFilteredStorage: '',
             loadingStorage: true,
-            saleData: '',
+            saleData: [],
             nonFilteredSale: '',
             loadingSale: true,
             authorized: false,
@@ -70,7 +67,6 @@ class App extends Component {
         }
     }
 
-    та
 
     getIncome() {
         IncomeService.getIncome().then(
@@ -89,7 +85,7 @@ class App extends Component {
             },
             error => {
                 console.log(error)
-                this.needAuthorize()
+                this.logOut()
             }
         );
     }
@@ -112,7 +108,7 @@ class App extends Component {
             },
             error => {
                 console.log(error)
-                this.needAuthorize()
+                this.logOut()
             }
         );
     }
@@ -134,12 +130,12 @@ class App extends Component {
             },
             error => {
                 console.log(error)
-                this.needAuthorize()
+                this.logOut()
             }
         );
     }
 
-    needAuthorize() {
+    logOut() {
         this.setState({authorized: false})
     }
 
@@ -147,11 +143,6 @@ class App extends Component {
         this.getIncome()
         this.getStorage()
         this.getSale()
-    }
-
-
-    logOut() {
-        AuthService.logout();
     }
 
     rarToSale(tags) {
@@ -422,32 +413,32 @@ class App extends Component {
     }
 
     render() {
-        console.log("App render...")
+        const {authorized, incomeData, storageData, saleData, loadingIncome, loadingSale, loadingStorage} = this.state;
         return (
             <Router>
                 <ScrollToTop>
                     <Switch>
-                        {this.state.authorized ?
+                        {authorized ?
                             <>
-                                <Route exact path={["/", "/main", "/home"]} component={MainPageComponent}/>
-                                <Route exact path="/register" component={Register}/>
-                                <Route exact path="/login" render={
+                                <Route exact path={["/", "/main", "/home"]} render={
                                     (props) =>
-                                        <Login
+                                        <MainPageComponent
                                             {...props}
-                                            authorized={this.state.authorized}
+                                            logOut={this.logOut}
                                         />
                                 }
                                 />
-                                <Route exact path="/income" render={
+                                {/*<Route exact path="/register" component={Register}/>*/}
+                                <Route path="/income" render={
                                     (props) =>
                                         <IncomePage
                                             clearSearch={this.clearSearch}
                                             {...props}
                                             onSearch={this.onSearch}
                                             addOrUpdate={this.addOrUpdateIncome}
-                                            income={this.state.incomeData}
+                                            income={incomeData}
                                             sort={this.sort}
+                                            loadingIncome={loadingIncome}
                                         />
                                 }
                                 />
@@ -455,10 +446,11 @@ class App extends Component {
                                     (props) => <StoragePage
                                         {...props}
                                         clearSearch={this.clearSearch}
-                                        storageData={this.state.storageData}
+                                        storageData={storageData}
                                         onSearch={this.onSearch}
                                         sort={this.sort}
                                         sellStorage={this.sellStorage}
+                                        loadingStorage={loadingStorage}
                                     />
                                 }
                                 />
@@ -466,16 +458,17 @@ class App extends Component {
                                     (props) => <SalePage
                                         {...props}
                                         clearSearch={this.clearSearch}
-                                        saleData={this.state.saleData}
+                                        saleData={saleData}
                                         onSearch={this.onSearch}
                                         sort={this.sort}
+                                        loadingSale={loadingSale}
                                     />
                                 }
                                 />
+                                <Redirect path="*" to={MainPageComponent}/>
                             </> :
                             <>
                                 <Login
-                                    authorized={this.state.authorized}
                                     authorize={this.authorize}
                                 />
                             </>
@@ -490,6 +483,3 @@ class App extends Component {
 }
 
 export default App;
-
-
-

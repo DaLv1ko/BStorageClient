@@ -186,7 +186,7 @@ export default class StorageFormComponent extends Component {
 
 
     render() {
-
+        const {type, brand, model, formValid, debt, price, amount, customer, date, formErrors} =this.state;
         return (
             <section id='popup' className="popup">
                 <div className="popup_body">
@@ -197,52 +197,52 @@ export default class StorageFormComponent extends Component {
                         <form onSubmit={this.onSubmit} className="popup-form">
                             <div className="popup-box">
                                 <label>Тип </label>
-                                <input placeholder="tv/phone/..." name="type" value={this.state.type}
+                                <input placeholder="tv/phone/..." name="type" value={type}
                                        list="types" readOnly={true}/>
                             </div>
                             <div className="popup-box">
                                 <label>Бренд </label>
-                                <input placeholder="samsung/lg/..." name="brand" value={this.state.brand}
+                                <input placeholder="samsung/lg/..." name="brand" value={brand}
                                        list="brands" readOnly={true}/>
                             </div>
                             <div className="popup-box">
                                 <label>Модель </label>
-                                <input placeholder="nu7120/kj312/..." name="model" value={this.state.model}
+                                <input placeholder="nu7120/kj312/..." name="model" value={model}
                                        list="models" readOnly={true}/>
                             </div>
 
                             <div className="popup-box">
                                 <label>Ціна </label>
-                                <input placeholder="UAH" name="price" value={this.state.price}
+                                <input placeholder="UAH" name="price" value={price}
                                        onChange={this.changePriceHandler}/>
                             </div>
                             <div>
-                                <FormErrors formErrors={this.state.formErrors}/>
+                                <FormErrors formErrors={formErrors}/>
                             </div>
                             <div className="popup-box">
                                 <label>Кількість </label>
 
                                 <input type="number" placeholder="1+" name="amount"
-                                       value={this.state.amount}
+                                       value={amount}
                                        onChange={this.handleUserInput}/>
                             </div>
                             <div className="popup-box">
                                 <label>Покупець </label>
-                                <input placeholder="ииии" name="customer" value={this.state.customer}
+                                <input placeholder="ииии" name="customer" value={customer}
                                        onChange={this.changeCustomerHandler}/>
                             </div>
                             <div className="popup-box">
                                 <label>Борг </label>
-                                <input placeholder="UAH" name="debt" value={this.state.debt}
+                                <input placeholder="UAH" name="debt" value={debt}
                                        onChange={this.changeDebtHandler}/>
                             </div>
                             <div className="popup-box">
                                 <label>Дата </label>
-                                <input placeholder="дд.мм.рррр" name="date" value={this.state.date}
+                                <input placeholder="дд.мм.рррр" name="date" value={date}
                                        onChange={this.changeDateHandler}/>
                             </div>
                             <div className="popup-box  popup-box-butt">
-                                <button type="submit" className="add_button" disabled={!this.state.formValid}
+                                <button type="submit" className="add_button" disabled={!formValid}
                                 >Продати
                                 </button>
                                 <button type="button" onClick={() => this.closeForm()} className="cancel_button"
