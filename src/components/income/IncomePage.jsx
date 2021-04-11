@@ -4,6 +4,7 @@ import IncomeTableComponent from "./IncomeTableComponent"
 import IncomeFormComponent from "./IncomeFormComponent"
 import HeaderComponent from "../HeaderComponent";
 import SearchComponent from "../SearchComponent";
+import Spinner from "../Spinner";
 
 class IncomePage extends Component {
 
@@ -48,7 +49,7 @@ class IncomePage extends Component {
 
     render() {
 
-        if (this.props.income === '') return null
+        if (this.props.income === '') return <Spinner/>
 
         return (
             <>

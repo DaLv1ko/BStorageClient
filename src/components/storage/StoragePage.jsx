@@ -3,6 +3,7 @@ import StorageTableComponent from "./StorageTableComponent";
 import StorageFormComponent from "./StorageFormComponent";
 import SearchComponent from "../SearchComponent";
 import HeaderComponent from "../HeaderComponent";
+import Spinner from "../Spinner";
 
 class StoragePage extends Component {
 
@@ -23,12 +24,16 @@ class StoragePage extends Component {
     }
 
     render() {
-        if (this.props.storageData === '') return null
+        if (this.props.storageData === '')
+        return <Spinner/>
+
+
         return (
             <>
+
                 <HeaderComponent
                     page={'storage'}
-                    clearSearch={() =>this.props.clearSearch('income')}
+                    clearSearch={() => this.props.clearSearch('income')}
                 />
                 <SearchComponent
                     addButton={false}

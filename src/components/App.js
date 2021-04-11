@@ -70,6 +70,8 @@ class App extends Component {
         }
     }
 
+    та
+
     getIncome() {
         IncomeService.getIncome().then(
             res => {
@@ -87,6 +89,7 @@ class App extends Component {
             },
             error => {
                 console.log(error)
+                this.needAuthorize()
             }
         );
     }
@@ -109,6 +112,7 @@ class App extends Component {
             },
             error => {
                 console.log(error)
+                this.needAuthorize()
             }
         );
     }
@@ -130,8 +134,13 @@ class App extends Component {
             },
             error => {
                 console.log(error)
+                this.needAuthorize()
             }
         );
+    }
+
+    needAuthorize() {
+        this.setState({authorized: false})
     }
 
     getData() {

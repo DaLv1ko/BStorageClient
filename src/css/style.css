@@ -353,7 +353,9 @@ a:not([href]):not([class]), a:not([href]):not([class]):hover {
 .header__burger{
     display: none;
 }
-
+.spinner{
+    margin-top: 15%;
+}
 @media  (max-width: 992px  ) {
 
     .current_page{
