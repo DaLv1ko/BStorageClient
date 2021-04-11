@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
+import "../css/style.css"
 import React, {Component} from "react";
 import Login from "./LoginComponent/LoginComponent";
 import Register from "./RegisterComponent";
