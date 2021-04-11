@@ -1,7 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css'
 
-import {BrowserRouter as Router, Route, Switch, useLocation} from "react-router-dom";
-import '../css/style.css'
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 import React, {Component} from "react";
 import Login from "./LoginComponent/LoginComponent";
