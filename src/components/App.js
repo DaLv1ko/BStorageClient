@@ -465,7 +465,7 @@ class App extends Component {
                                     />
                                 }
                                 />
-                                <Redirect path="*" to={MainPageComponent}/>
+                                <Redirect path="*" to="/main"/>
                             </> :
                             <>
                                 <Login
