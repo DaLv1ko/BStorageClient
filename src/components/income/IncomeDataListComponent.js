@@ -10,6 +10,10 @@ export default class IncomeDataListComponent extends Component {
         types: []
     }
 
+    componentWillUnmount() {
+
+    }
+
     componentDidMount() {
         this.getBrands();
         this.getModels();
@@ -57,11 +61,11 @@ export default class IncomeDataListComponent extends Component {
     render() {
         const {brands, models, types, suppliers} = this.state;
         return (
-            <section>
+            <>
                 <datalist id="brands">{brands.map(brand => <option key={brand.id} value={brand.brand}/>)}</datalist>
                 <datalist id="models">{models.map(model => <option key={model.id} value={model.model}/>)}</datalist>
                 <datalist id="types">{types.map(type => <option key={type.id} value={type.type}/>)}</datalist>
                 <datalist id="suppliers">{suppliers.map(supplier => <option key={supplier.id} value={supplier.supplier}/>)}</datalist>
-            </section>)
+            </>)
     }
 }

@@ -40,7 +40,7 @@ export default class IncomeFormComponent extends Component {
         this.getTitle = this.getTitle.bind(this)
         this.getButton = this.getButton.bind(this)
         this.cancel = this.cancel.bind(this)
-        this.closeForm = this.closeForm.bind(this)
+        this.closeIncomeForm = this.closeIncomeForm.bind(this)
         this.escFunction = this.escFunction.bind(this)
 
         this.changeTypeHandler = this.changeTypeHandler.bind(this)
@@ -69,11 +69,11 @@ export default class IncomeFormComponent extends Component {
 
     escFunction(event){
         if(event.keyCode === 27) {
-           this.closeForm()
+           this.closeIncomeForm()
         }
     }
 
-    getIncomeItem() {
+    getIncomeItem() { //todo РОБИТИ НЕ ЗАПРОС НА СЕРВ А ДІСТАВАТИ З incomeDATA CLOWN!!!!!
         const {itemId} = this.props;
         if (itemId !== '') {
             IncomeService.getIncomeById(itemId)
@@ -106,10 +106,9 @@ export default class IncomeFormComponent extends Component {
             });
     }
 
-    closeForm() {
+    closeIncomeForm() {
         this.props.resetItemId();
-        let popup = document.getElementById('popup');
-        popup.classList.remove('open');
+        this.props.closeForm();
         this.cancel();
     }
 
@@ -237,7 +236,7 @@ export default class IncomeFormComponent extends Component {
             date: this.state.date
         }
         this.props.onAddOrUpdate(item);
-        this.closeForm()
+        this.closeIncomeForm()
     }
 
 
@@ -248,7 +247,7 @@ export default class IncomeFormComponent extends Component {
                 <div className="popup_body">
                     <div className="popup_content">
                         {this.getTitle(id)}
-                        <i onClick={this.closeForm}
+                        <i onClick={this.closeIncomeForm}
                            className="fas fa-times popup_close" aria-hidden="true"/>
                         <form onSubmit={this.onSubmit}
                               className="popup-form">
@@ -293,7 +292,7 @@ export default class IncomeFormComponent extends Component {
                             <FormErrors formErrors={formErrors}/>
                             <div className="popup-box popup-box-butt ">
                                 {this.getButton(id)}
-                                <button type="button" onClick={() => this.closeForm()}
+                                <button type="button" onClick={() => this.closeIncomeForm()}
                                         className="search_but__popup close-popup">Скасувати
                                 </button>
                             </div>

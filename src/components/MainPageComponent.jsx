@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 import AuthService from "../services/AuthService";
 import HeaderComponent from "./HeaderComponent";
-import {Link} from 'react-router-dom'
 
 class MainPageComponent extends Component {
 
     constructor(props) {
         super(props)
 
-        this.state = {}
         this.logOut = this.logOut.bind(this)
     }
 

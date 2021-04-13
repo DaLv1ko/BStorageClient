@@ -35,15 +35,10 @@ class IncomePage extends Component {
     setItemId(id) {
         this.setState({itemId: id})
         this.setState({showForm: true})
-        this.openForm();
+        this.props.openForm();
     }
 
-    openForm() {
-        let popup = document.getElementById('popup');
-        let body = document.querySelector("body");
-        popup.classList.add('open');
-        body.style.overflowY="hidden";
-    }
+
 
     resetItemId() {
         this.setState({itemId: ''})
@@ -71,6 +66,7 @@ class IncomePage extends Component {
                     loading={this.props.loading}
                 />
                 <IncomeFormComponent
+                    closeForm={this.props.closeForm}
                     onAddOrUpdate={this.props.addOrUpdate}
                     itemId={this.state.itemId}
                     resetItemId={this.resetItemId}

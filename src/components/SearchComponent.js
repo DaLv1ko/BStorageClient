@@ -27,6 +27,8 @@ export default class SearchComponent extends Component {
 
     addForm() {
         let popup = document.getElementById('popup');
+        let body = document.querySelector('body');
+        body.style.position = 'fixed';
         popup.classList.add('open');
     }
 

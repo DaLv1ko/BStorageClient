@@ -5,7 +5,6 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import "../css/style.css"
 import React, {Component} from "react";
 import Login from "./LoginComponent/LoginComponent";
-import Register from "./RegisterComponent";
 import authHeader from "../js/auth-header";
 import MainPageComponent from "./MainPageComponent";
 import IncomePage from "./income/IncomePage";
@@ -38,6 +37,9 @@ class App extends Component {
             authorized: false,
             sortingDateAsc: true,
         };
+
+        this.closeForm = this.closeForm.bind(this)
+        this.openForm = this.openForm.bind(this)
         this.logOut = this.logOut.bind(this);
         this.onSearch = this.onSearch.bind(this)
         this.getData = this.getData.bind(this);
@@ -412,6 +414,20 @@ class App extends Component {
         this.setState({authorized: true})
     }
 
+    closeForm(){
+        let popup = document.getElementById('popup');
+        popup.classList.remove('open');
+        let body = document.querySelector('body');
+        body.style.position = 'inherit';
+    }
+
+    openForm() {
+        let popup = document.getElementById('popup');
+        let body = document.querySelector("body");
+        popup.classList.add('open');
+        body.style.overflowY="hidden";
+    }
+
     render() {
         const {authorized, incomeData, storageData, saleData, loadingIncome, loadingSale, loadingStorage} = this.state;
         return (
@@ -432,6 +448,8 @@ class App extends Component {
                                 <Route path="/income" render={
                                     (props) =>
                                         <IncomePage
+                                            closeForm={this.closeForm}
+                                            openForm={this.openForm}
                                             clearSearch={this.clearSearch}
                                             {...props}
                                             onSearch={this.onSearch}
@@ -445,6 +463,8 @@ class App extends Component {
                                 <Route path="/storage" render={
                                     (props) => <StoragePage
                                         {...props}
+                                        closeForm={this.closeForm}
+                                        openForm={this.openForm}
                                         clearSearch={this.clearSearch}
                                         storageData={storageData}
                                         onSearch={this.onSearch}

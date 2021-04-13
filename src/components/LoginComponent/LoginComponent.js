@@ -6,7 +6,6 @@ import AuthService from "../../services/AuthService";
 
 import './LoginComponent.css'
 import {withRouter} from "react-router";
-import {Link} from 'react-router-dom'
 
 
 class Login extends Component {
