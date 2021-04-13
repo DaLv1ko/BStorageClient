@@ -51,7 +51,7 @@ class IncomePage extends Component {
 
     render() {
 
-        if (this.props.income === '') return <Spinner/>
+        if (this.props.loadingIncome) return <Spinner/>
 
         return (
             <>

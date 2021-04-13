@@ -7,7 +7,7 @@ import Spinner from "../Spinner";
 class SalePage extends Component {
 
     render() {
-        if (this.props.saleData === '') return <Spinner/>
+        if (this.props.loadingSale) return <Spinner/>
 
         const {onSearch, saleData, sort, clearSearch} = this.props;
         return (

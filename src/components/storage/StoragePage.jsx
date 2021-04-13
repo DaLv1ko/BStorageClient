@@ -24,7 +24,7 @@ class StoragePage extends Component {
     }
 
     render() {
-        if (this.props.storageData === '')
+        if (this.props.loadingStorage)
             return <Spinner/>
 
         const {clearSearch, onSearch, sort, storageData, sellStorage} = this.props;
