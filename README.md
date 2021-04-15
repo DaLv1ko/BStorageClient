@@ -1,6 +1,6 @@
 # BStorageClient
 
-React cleint for BStorage.
+React cleint for BStorage. SPA & PWA
 
 Used technologies:
 
