@@ -6,7 +6,7 @@ import "../css/style.css"
 import React, {Component} from "react";
 import Login from "./LoginComponent/LoginComponent";
 import authHeader from "../js/auth-header";
-import MainPageComponent from "./MainPageComponent";
+import MainPage from "./MainPage";
 import IncomePage from "./income/IncomePage";
 import StoragePage from "./storage/StoragePage";
 import SalePage from "./sale/SalePage";
@@ -438,7 +438,7 @@ class App extends Component {
                             <>
                                 <Route exact path={["/", "/main", "/home"]} render={
                                     (props) =>
-                                        <MainPageComponent
+                                        <MainPage
                                             {...props}
                                             logOut={this.logOut}
                                         />

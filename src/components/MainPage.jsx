@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import AuthService from "../services/AuthService";
 import HeaderComponent from "./HeaderComponent";
+import VarTest from "./VarTest";
 
-class MainPageComponent extends Component {
+class MainPage extends Component {
 
     constructor(props) {
         super(props)
@@ -33,10 +34,11 @@ class MainPageComponent extends Component {
                         </div>
                     </div>
                 </section>
+                <VarTest/>
             </div>
 
         );
     }
 }
 
-export default MainPageComponent;
+export default MainPage;
