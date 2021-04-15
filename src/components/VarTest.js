@@ -1,26 +1,27 @@
 import React, {Component} from "react";
 
-export default class VarTest extends Component{
+export default class VarTest extends Component {
 
 
     constructor(props) {
         super(props);
 
-        this.test= this.test.bind(this)
+        this.test = this.test.bind(this)
     }
 
-    test(){
-        require('dotenv').config();
-        console.log(process.env.TEST_DALV1K);
-        console.log(process.env.TEST);
-        console.log(process.env);
-        console.log(process);
+    test() {
+        require('dotenv').config()
+        console.log(process.env.REACT_APP_URL)
     }
 
     render() {
 
-        return(
+        return (<>
+                <pre>{process.env.REACT_APP_URL}</pre>
+
                 <button type="button" onClick={this.test}>TEST</button>
+            </>
+
         )
     }
 }
