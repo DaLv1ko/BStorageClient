@@ -73,7 +73,7 @@ export default class IncomeFormComponent extends Component {
         }
     }
 
-    getIncomeItem() { //todo РОБИТИ НЕ ЗАПРОС НА СЕРВ А ДІСТАВАТИ З incomeDATA CLOWN!!!!!
+    getIncomeItem() { //todo РОБИТИ НЕ ЗАПРОС НА СЕРВ А ДІСТАВАТИ З incomeDATA, CLOWN!!!!!
         const {itemId} = this.props;
         if (itemId !== '') {
             IncomeService.getIncomeById(itemId)
