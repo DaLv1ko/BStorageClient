@@ -15,8 +15,6 @@ export default class IncomeFormComponent extends Component {
 
 
         this.state = {
-            currentState: 1,
-            doing: 'add',
             id: '',
             type: '',
             brand: '',
@@ -42,7 +40,8 @@ export default class IncomeFormComponent extends Component {
         this.getTitle = this.getTitle.bind(this)
         this.getButton = this.getButton.bind(this)
         this.cancel = this.cancel.bind(this)
-        this.closeForm = this.closeForm.bind(this)
+        this.closeIncomeForm = this.closeIncomeForm.bind(this)
+        this.escFunction = this.escFunction.bind(this)
 
         this.changeTypeHandler = this.changeTypeHandler.bind(this)
         this.changeBrandHandler = this.changeBrandHandler.bind(this)
@@ -61,11 +60,20 @@ export default class IncomeFormComponent extends Component {
         }
     }
 
-    componentDidMount() {
-        this.getIncomeItem();
+    componentDidMount(){
+        document.addEventListener("keydown", this.escFunction, false);
+    }
+    componentWillUnmount(){
+        document.removeEventListener("keydown", this.escFunction, false);
     }
 
-    getIncomeItem() {
+    escFunction(event){
+        if(event.keyCode === 27) {
+           this.closeIncomeForm()
+        }
+    }
+
+    getIncomeItem() { //todo РОБИТИ НЕ ЗАПРОС НА СЕРВ А ДІСТАВАТИ З incomeDATA, CLOWN!!!!!
         const {itemId} = this.props;
         if (itemId !== '') {
             IncomeService.getIncomeById(itemId)
@@ -79,7 +87,10 @@ export default class IncomeFormComponent extends Component {
                         amount: res.data.amount,
                         date: res.data.date,
                         supplier: res.data.supplier.supplier,
-                        itemId:itemId
+                        itemId: itemId,
+                        priceValid: true,
+                        dateValid: true,
+                        amountValid: true,
                     })
                 })
         }
@@ -95,34 +106,14 @@ export default class IncomeFormComponent extends Component {
             });
     }
 
-
-    getDateInput() {
-        if (this.state.addOrUpdate === '_add') {
-
-
-            if (this.state.addDate) {
-                this.state.date = this.state.currentDate;
-            }
-            return <input placeholder="дд.мм.рррр" name="date" value={this.state.date}
-                          onChange={this.changeDateHandler}/>
-        } else {
-            return <input placeholder="дд.мм.рррр" name="date" value={this.state.date}
-                          onChange={this.changeDateHandler}/>
-        }
-    }
-
-    closeForm() {
+    closeIncomeForm() {
         this.props.resetItemId();
-        let popup = document.getElementById('popup');
-        popup.classList.remove('open');
+        this.props.closeForm();
         this.cancel();
     }
 
     cancel() {
-
         this.setState({
-            currentState: 1,
-            doing: 'add',
             id: '',
             type: '',
             brand: '',
@@ -143,8 +134,6 @@ export default class IncomeFormComponent extends Component {
             priceValid: false,
 
             date: this.state.currentDate,
-
-            addDate: true,
 
         })
     }
@@ -202,12 +191,12 @@ export default class IncomeFormComponent extends Component {
                 break;
         }
         this.setState({
-            formErrors: fieldValidationErrors,
-            amountValid: amountValid,
-            priceValid: priceValid,
-            dateValid: dateValid,
-
-        }, this.validateForm);
+                formErrors: fieldValidationErrors,
+                amountValid: amountValid,
+                priceValid: priceValid,
+                dateValid: dateValid,
+            },
+            this.validateForm);
     }
 
     validateForm() {
@@ -229,8 +218,6 @@ export default class IncomeFormComponent extends Component {
             return <button disabled={!this.state.formValid} type="submit" className="search_but__popup">Додати
             </button>
         } else {
-                this.state.amountValid= true;
-                this.state.priceValid= true;
             return <button disabled={!this.state.formValid} type="submit" className="search_but__popup">Редагувати
             </button>
         }
@@ -249,65 +236,63 @@ export default class IncomeFormComponent extends Component {
             date: this.state.date
         }
         this.props.onAddOrUpdate(item);
-        this.closeForm()
+        this.closeIncomeForm()
     }
 
 
     render() {
-        const {type, brand, model, id, price, amount, supplier, date, formErrors} =this.state;
+        const {type, brand, model, id, price, amount, supplier, date, formErrors} = this.state;
         return (
             <section id='popup' className="popup">
-                <div className="popup_body" >
+                <div className="popup_body">
                     <div className="popup_content">
                         {this.getTitle(id)}
-                      <i onClick={this.closeForm}
-                            className="fas fa-times popup_close" aria-hidden="true"/>
+                        <i onClick={this.closeIncomeForm}
+                           className="fas fa-times popup_close" aria-hidden="true"/>
                         <form onSubmit={this.onSubmit}
                               className="popup-form">
 
                             <div className="popup-box">
                                 <label>Тип </label>
                                 <input placeholder="tv/phone/..." name="type" value={type}
-                                       onChange={this.changeTypeHandler} list="types"/>
+                                       onChange={this.changeTypeHandler} list="types" required={true}/>
                             </div>
                             <div className="popup-box">
                                 <label>Бренд </label>
                                 <input placeholder="samsung/lg/..." name="brand" value={brand}
-                                       onChange={this.changeBrandHandler} list="brands"/>
+                                       onChange={this.changeBrandHandler} list="brands" required={true}/>
                             </div>
                             <div className="popup-box">
                                 <label>Модель </label>
                                 <input placeholder="nu7120/kj312/..." name="model" value={model}
-                                       onChange={this.changeModelHandler} list="models"/>
+                                       onChange={this.changeModelHandler} list="models" required={true}/>
                             </div>
                             <div className="popup-box">
                                 <label>Ціна </label>
                                 <input type="number" placeholder="UAH" name="price" value={price}
-                                       onChange={this.changePriceHandler}/>
+                                       onChange={this.changePriceHandler} required={true}/>
                             </div>
 
                             <div className="popup-box">
                                 <label>Кількість </label>
                                 <input type="number" placeholder="1+" name="amount" value={amount}
-                                       onChange={this.changeAmountHandler}/>
+                                       onChange={this.changeAmountHandler} required={true}/>
                             </div>
                             <div className="popup-box">
                                 <label>Постачальник</label>
                                 <input placeholder="poland/solo/..." name="supplier" value={supplier}
-                                       onChange={this.changeSupplierHandler} list="suppliers"/>
+                                       onChange={this.changeSupplierHandler} list="suppliers" required={true}/>
                             </div>
 
                             <div className="popup-box">
                                 <label>Дата</label>
                                 <input placeholder="дд.мм.рррр" name="date" value={date}
-                                       onChange={this.changeDateHandler}/>
+                                       onChange={this.changeDateHandler} required={true}/>
                             </div>
-
                             <FormErrors formErrors={formErrors}/>
-
                             <div className="popup-box popup-box-butt ">
                                 {this.getButton(id)}
-                                <button type="button" onClick={() => this.closeForm()}
+                                <button type="button" onClick={() => this.closeIncomeForm()}
                                         className="search_but__popup close-popup">Скасувати
                                 </button>
                             </div>

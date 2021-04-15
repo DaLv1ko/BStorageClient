@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const API_URL_AUTH = "https://bstorage-server.herokuapp.com/api/auth/";
-// const API_URL_AUTH = "https://localhost:8080/api/auth/";
+const API_URL_AUTH = `${process.env.REACT_APP_API_URL}auth/`;
 
 class AuthService {
     login(username, password) {

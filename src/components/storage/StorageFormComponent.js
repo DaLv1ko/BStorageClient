@@ -38,7 +38,8 @@ export default class StorageFormComponent extends Component {
 
         this.onSubmit = this.onSubmit.bind(this)
         this.cancel = this.cancel.bind(this)
-        this.closeForm = this.closeForm.bind(this)
+        this.closeStorageForm = this.closeStorageForm.bind(this)
+        this.escFunction = this.escFunction.bind(this)
 
         this.changeTypeHandler = this.changeTypeHandler.bind(this)
         this.changeBrandHandler = this.changeBrandHandler.bind(this)
@@ -66,6 +67,19 @@ export default class StorageFormComponent extends Component {
         }
     }
 
+    componentDidMount(){
+        document.addEventListener("keydown", this.escFunction, false);
+    }
+    componentWillUnmount(){
+        document.removeEventListener("keydown", this.escFunction, false);
+    }
+
+    escFunction(event){
+        if(event.keyCode === 27) {
+            this.closeStorageForm()
+        }
+    }
+
     handleUserInput = (e) => {
         const name = e.target.name;
         const value = e.target.value;
@@ -76,9 +90,8 @@ export default class StorageFormComponent extends Component {
     }
 
 
-    closeForm() {
-            let popup = document.getElementById('popup');
-            popup.classList.remove('open');
+    closeStorageForm() {
+           this.props.closeForm();
             this.cancel();
     }
 
@@ -181,7 +194,7 @@ export default class StorageFormComponent extends Component {
             date: this.state.date
         }
         this.props.sellStorage(item, this.state.id);
-        this.closeForm()
+        this.closeStorageForm()
     }
 
 
@@ -192,7 +205,7 @@ export default class StorageFormComponent extends Component {
                 <div className="popup_body">
                     <div className="popup_content ">
                         <h2 className="title_form">Продати</h2>
-                       <i onClick={this.closeForm}
+                       <i onClick={this.closeStorageForm}
                             className="fas fa-times popup_close" aria-hidden="true"/>
                         <form onSubmit={this.onSubmit} className="popup-form">
                             <div className="popup-box">
@@ -245,7 +258,7 @@ export default class StorageFormComponent extends Component {
                                 <button type="submit" className="add_button" disabled={!formValid}
                                 >Продати
                                 </button>
-                                <button type="button" onClick={() => this.closeForm()} className="cancel_button"
+                                <button type="button" onClick={() => this.closeStorageForm()} className="cancel_button"
                                 >Скасувати
                                 </button>
                             </div>

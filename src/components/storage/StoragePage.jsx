@@ -19,12 +19,11 @@ class StoragePage extends Component {
 
     sellItem(item) {
         this.setState({item: item})
-        let popup = document.getElementById('popup');
-        popup.classList.add('open');
+      this.props.openForm()
     }
 
     render() {
-        if (this.props.storageData === '')
+        if (this.props.loadingStorage)
             return <Spinner/>
 
         const {clearSearch, onSearch, sort, storageData, sellStorage} = this.props;
@@ -46,7 +45,10 @@ class StoragePage extends Component {
                     sellItem={this.sellItem}
                     goods={storageData}
                 />
-                <StorageFormComponent sellStorage={sellStorage} item={item}/>
+                <StorageFormComponent
+                    closeForm={this.props.closeForm}
+                    sellStorage={sellStorage}
+                    item={item}/>
             </>
         );
     }
