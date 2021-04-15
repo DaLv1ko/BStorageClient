@@ -1,8 +1,8 @@
 import axios from "axios";
 import authHeader from "../js/auth-header";
 
-const API_URL_SALE= "https://bstorage-server.herokuapp.com/api/sale";
-// const API_URL_SALE= "https://localhost:8080/api/sale";
+const API_URL_SALE= `${process.env.REACT_APP_API_URL}sale`;
+
 
 class StorageService{
 

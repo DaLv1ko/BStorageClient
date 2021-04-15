@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import AuthService from "../services/AuthService";
 import HeaderComponent from "./HeaderComponent";
-import VarTest from "./VarTest";
 
 class MainPage extends Component {
 
@@ -34,7 +33,6 @@ class MainPage extends Component {
                         </div>
                     </div>
                 </section>
-                <VarTest/>
             </div>
 
         );
