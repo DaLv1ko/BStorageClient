@@ -12,6 +12,9 @@ export default class VarTest extends Component{
     test(){
         require('dotenv').config();
         console.log(process.env.TEST_DALV1K);
+        console.log(process.env.TEST);
+        console.log(process.env);
+        console.log(process);
     }
 
     render() {
