@@ -6,4 +6,8 @@ Used technologies:
 
 -Ract
 
+-Axios
+
+-Bootstrap
+
 -JWT
