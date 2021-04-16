@@ -60,39 +60,41 @@ export default class IncomeFormComponent extends Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         document.addEventListener("keydown", this.escFunction, false);
     }
-    componentWillUnmount(){
+
+    componentWillUnmount() {
         document.removeEventListener("keydown", this.escFunction, false);
     }
 
-    escFunction(event){
-        if(event.keyCode === 27) {
-           this.closeIncomeForm()
+    escFunction(event) {
+        if (event.keyCode === 27) {
+            this.closeIncomeForm()
         }
     }
 
-    getIncomeItem() { //todo РОБИТИ НЕ ЗАПРОС НА СЕРВ А ДІСТАВАТИ З incomeDATA, CLOWN!!!!!
+    getIncomeItem() {
         const {itemId} = this.props;
         if (itemId !== '') {
-            IncomeService.getIncomeById(itemId)
-                .then((res) => {
+            this.props.incomeData.forEach(item => {
+                if (item.id === itemId) {
                     this.setState({
-                        id: res.data.id,
-                        type: res.data.type.type,
-                        brand: res.data.brand.brand,
-                        model: res.data.model.model,
-                        price: res.data.price,
-                        amount: res.data.amount,
-                        date: res.data.date,
-                        supplier: res.data.supplier.supplier,
+                        id: item.id,
+                        type: item.type.type,
+                        brand: item.brand.brand,
+                        model: item.model.model,
+                        price: item.price,
+                        amount: item.amount,
+                        date: item.date,
+                        supplier: item.supplier.supplier,
                         itemId: itemId,
                         priceValid: true,
                         dateValid: true,
                         amountValid: true,
                     })
-                })
+                }
+            })
         }
     }
 

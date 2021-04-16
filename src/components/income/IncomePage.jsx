@@ -66,6 +66,7 @@ class IncomePage extends Component {
                     loading={this.props.loading}
                 />
                 <IncomeFormComponent
+                    incomeData={this.props.income}
                     closeForm={this.props.closeForm}
                     onAddOrUpdate={this.props.addOrUpdate}
                     itemId={this.state.itemId}
